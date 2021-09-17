@@ -488,6 +488,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             for (int i = 0; i < raw.length; i++)
                 ls_sb.append(char2hex(raw[i]));
             Log.e("sha_ls_sb = ", "" + ls_sb);
+
             return ls_sb.toString(); // step 6
         } catch (Exception e) {
 
