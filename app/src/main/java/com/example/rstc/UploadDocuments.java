@@ -490,6 +490,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             Log.e("sha_ls_sb = ", "" + ls_sb);
             return ls_sb.toString(); // step 6
         } catch (Exception e) {
+
             e.printStackTrace();
             return null;
         }
