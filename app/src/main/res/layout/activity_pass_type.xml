@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PassTypeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/distance_wise_pass"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:textColor="#ff0000"
+        android:background="@drawable/rounded_corner"
+        android:padding="5dp"/>
+
+
+<!--    <RadioGroup-->
+<!--        android:id="@+id/radio_group"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        >-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/distance_pass"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#05589A"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:buttonTint="#ff0000"-->
+<!--            android:text="@string/distance_wise_pass"/>-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/fixed_pass"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#05589A"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--            android:buttonTint="#ff0000"-->
+<!--            android:text="@string/fixed_pass"/>-->
+
+<!--    </RadioGroup>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dist_wise_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/distance_wise_pass"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:id="@+id/fixed_pass"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/fixed_pass"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pass_type_and_validity"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="2dp"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#000080"
+        />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/pass_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.25"
+                    android:textSize="18sp"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:text="@string/rfid_pass_holder"
+                    android:padding="5dp"
+                    android:inputType="none"
+                    />
+
+                <Spinner
+                    android:id="@+id/pass_holder_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:padding="5dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/pass_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:text="@string/rfid_pass_type"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/pass_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/pass_validity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:text="@string/rfid_pass_validity"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_pass_validity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:background="@drawable/rounded_corner"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+             <LinearLayout
+            android:id="@+id/select_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_stop"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:padding="2dp"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="#000080"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/from_stop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:text="@string/from_stop"
+                    android:padding="5dp"
+                    android:inputType="none"
+                    />
+
+               <AutoCompleteTextView
+                   android:id="@+id/tv_from_stop"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:hint="From Stop"
+                   android:completionThreshold="1"
+                   android:layout_weight="1"
+                   android:completionHint="Select From Stop"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/till_stop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="3dp"
+                    android:text="@string/till_stop"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_till_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Till Stop"
+                    android:completionThreshold="1"
+                    android:layout_weight="1"
+                    android:completionHint="Select Till Stop"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/bus_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:text="@string/bus_type"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_bus_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bus Type"
+                    android:completionThreshold="1"
+                    android:layout_weight="1"
+                    android:completionHint="Select Bus Type"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/search_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search Route"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+ <LinearLayout
+            android:id="@+id/con_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/concession_detail"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="2dp"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#000080"
+        />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/proof_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:text="@string/con_type"
+                    android:padding="2dp"
+                    android:inputType="none"
+                    />
+
+                <Spinner
+                    android:id="@+id/con_type_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner"
+                    android:layout_weight="1"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/con_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:text="@string/con_code"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/con_code_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner"
+                    android:padding="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/pass_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:text="@string/pass_period"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/pas_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner"
+                    android:padding="10dp"
+                    />
+            </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="10dp"
+         android:orientation="horizontal"
+         android:weightSum="2">
+
+
+         <TextView
+             android:id="@+id/textView_endDate"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:textSize="18sp"
+             android:ems="10"
+             android:backgroundTint="#E8E6E6"
+             android:textColor="@color/black"
+             android:text="@string/end_date"
+
+             android:inputType="none"
+             android:padding="5dp"
+             />
+
+         <TextView
+             android:id="@+id/date_pick"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:background="@drawable/rounded_corner"
+             android:padding="5dp"
+             android:textColor="@color/black"
+             android:textSize="18sp"
+             android:hint="@string/end_date_hint"
+             />
+     </LinearLayout>
+
+
+    </LinearLayout>
+    </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

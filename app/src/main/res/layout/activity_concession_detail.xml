@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:padding="5dp"
+    tools:context=".ConcessionDetail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fixed_pass"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:textColor="#ff0000"
+        android:background="@drawable/rounded_corner"
+        android:padding="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/concession_detail"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="2dp"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#000080"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/con_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:text="@string/con_type"
+            android:padding="5dp"
+            android:inputType="none"
+            />
+
+        <Spinner
+            android:id="@+id/con_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_spinner"
+            android:layout_weight="1"
+            android:padding="8dp" />
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/tv"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="select"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/con_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="none"
+            android:padding="5dp"
+            android:text="@string/con_code"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/con_code_spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/gradient_spinner"
+            android:padding="8dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/pass_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="none"
+            android:padding="5dp"
+            android:text="@string/pass_period"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/pas_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/gradient_spinner"
+            android:padding="8dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+        <TextView
+            android:id="@+id/textView_endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:ems="10"
+            android:backgroundTint="#E8E6E6"
+            android:textColor="@color/black"
+            android:text="@string/end_date"
+            android:inputType="none"
+            android:padding="5dp"
+            />
+
+        <TextView
+            android:id="@+id/date_pick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corner"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:hint="@string/end_date_hint"
+            />
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:ems="10"
+                android:backgroundTint="#E8E6E6"
+                android:textColor="@color/black"
+                android:text="@string/position"
+                android:inputType="none"
+                android:padding="5dp"
+                />
+
+            <EditText
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:hint="@string/position_hint"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_select_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_stop"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:padding="2dp"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="#000080"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/from_stop"-->
+            <!--                    android:layout_width="130dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:text="@string/from_stop"-->
+            <!--                    android:padding="5dp"-->
+            <!--                    android:inputType="none"-->
+            <!--                    />-->
+
+            <EditText
+                android:id="@+id/et_from_stop1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter From Stop"
+                android:completionThreshold="1"
+                android:completionHint="Select From Stop"
+                android:layout_marginRight="5dp"
+                android:importantForAutofill="no" />
+
+
+            <Button
+                android:id="@+id/from_stop1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:text="@string/search"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:inputType="none"
+                android:backgroundTint="#F3EAEA"
+                />
+
+            <!--               <AutoCompleteTextView-->
+            <!--                   android:id="@+id/tv_from_stop"-->
+            <!--                   android:layout_width="wrap_content"-->
+            <!--                   android:layout_height="wrap_content"-->
+            <!--                   android:hint="From Stop"-->
+            <!--                   android:completionThreshold="1"-->
+            <!--                   android:layout_weight="1"-->
+            <!--                   android:completionHint="Select From Stop"/>-->
+
+            <!--                <Spinner-->
+            <!--                    android:id="@+id/spinner_from_stop"-->
+            <!--                    android:layout_width="200dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@drawable/gradient_spinner"-->
+            <!--                    android:padding="8dp" />-->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/till_stop"-->
+            <!--                    android:layout_width="130dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:inputType="none"-->
+            <!--                    android:padding="3dp"-->
+            <!--                    android:text="@string/till_stop"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:textSize="18sp" />-->
+
+            <EditText
+                android:id="@+id/et_till_stop1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Till Stop"
+                android:completionThreshold="1"
+                android:completionHint="Select From Stop"
+                android:layout_marginRight="5dp"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:id="@+id/till_stop1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:ems="10"
+                android:textColor="@color/black"
+                android:text="@string/search"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:backgroundTint="#F3EAEA"
+                android:inputType="none"
+                />
+
+
+
+            <!--                <AutoCompleteTextView-->
+            <!--                    android:id="@+id/tv_till_stop"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:hint="Till Stop"-->
+            <!--                    android:completionThreshold="1"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:completionHint="Select Till Stop"/>-->
+
+            <!--                <Spinner-->
+            <!--                    android:id="@+id/spinner_till_stop"-->
+            <!--                    android:layout_width="200dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@drawable/gradient_spinner"-->
+            <!--                    android:padding="8dp" />-->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/bus_type"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="none"
+                android:padding="5dp"
+                android:text="@string/bus_type"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_bus_type1"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_spinner"
+                android:padding="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:weightSum="2"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_back"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="BACK"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textSize="16sp"/>-->
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="16sp"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_clear"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Clear"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textSize="16sp"/>-->
+
+<!--            </LinearLayout>-->
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,3 @@
+rootProject.name = "RSRTC"
+include ':app'
+//include ':app', ':BillDeskSDK_v2.1.3'

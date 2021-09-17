@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "456704757194",
+    "project_id": "rstrc-f4489",
+    "storage_bucket": "rstrc-f4489.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456704757194:android:1846010809289823cc1333",
+        "android_client_info": {
+          "package_name": "com.example.rstc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456704757194-r7k4pasi7jupi286d4dnjb11ilm67s3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0KLqBscStnflDethtMFVbHEj03bfEIl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456704757194-r7k4pasi7jupi286d4dnjb11ilm67s3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

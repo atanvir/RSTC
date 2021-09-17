@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.rstc">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/rsrtc_logoss"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/rsrtc_logoss"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RSRTC"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:theme">
+        <activity
+            android:name=".ui.activity.auth.forgot.ForgotPasswordActivity"
+            android:exported="true" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".StatusActivity" />
+        <activity android:name=".FixPassFareCalculation" />
+        <activity android:name=".ConcessionDetail" />
+        <activity android:name=".ui.activity.auth.login.LoginActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".UploadDocuments" />
+        <activity android:name=".PassTypeActivity" />
+        <activity android:name=".CustomerFeedback" />
+        <activity android:name=".SelectRouteActivity" />
+        <activity android:name=".ImageCaptureActivity" />
+        <activity android:name=".FareCalculation" />
+        <activity android:name=".PassRouteSelection" />
+        <activity android:name=".ApiActivity" />
+        <activity android:name=".ui.activity.auth.signup.SignupActivity" />
+        <activity
+            android:name=".ui.activity.splash.SplashActivity"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,170 @@
+<resources>
+    <string name="app_name">RSRTC</string>
+    <string name="rsrtc_online_member_registration">RSRTC Online Member Registration</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="collect_pass_form">Collect Pass Form</string>
+
+
+    <string name="applicant_id">Applicant ID : <font color='#F80404'>*</font></string>
+    <string name="title">Title : <font color='#F80404'>*</font></string>
+    <string name="hint_test1">First name : <font color='#F80404'>*</font></string>
+    <string name="hint_test2">Middle name : <font color='#FF0000'>*</font></string>
+    <string name="hint_test3">Last name : <font color='#FF0000'>*</font></string>
+    <string name="gender">Gender : <font color='#FF0000'>*</font></string>
+    <string name="date_of_birth">Date Of Birth : <font color='#FF0000'>*</font></string>
+    <string name="date_of_birth_hint">Date Of Birth</string>
+
+    <string name="mobile_num">Mobile No : <font color='#F80404'>*</font></string>
+    <string name="email">Email ID : <font color='#F80404'>*</font></string>
+    <string name="phone_no">Phone No : </string>
+    <string name="address">Address : <font color='#F80404'>*</font></string>
+    <string name="id_proof">Proof ID : <font color='#F80404'>*</font></string>
+    <string name="proof_details">Proof Details : <font color='#F80404'>*</font></string>
+    <string name="collect_pass">Depot : <font color='#F80404'>*</font></string>
+
+    <string name="rfid_pass_holder">Rfid Pass Holder : <font color='#F80404'>*</font></string>
+    <string name="rfid_pass_type">Rfid Pass Type : <font color='#F80404'>*</font></string>
+    <string name="rfid_pass_validity">Rfid Pass Validity:<font color='#F80404'>*</font></string>
+
+    <string name="from_stop">From Stop<font color='#F80404'>*</font></string>
+    <string name="till_stop">Till Stop<font color='#F80404'>*</font></string>
+    <string name="bus_type">Bus Type : <font color='#F80404'>*</font></string>
+    <string name="search">Search <font color='#F80404'>*</font></string>
+
+    <string name="con_type">Concession Type:<font color='#F80404'>*</font></string>
+    <string name="con_code">Concession Code:<font color='#F80404'>*</font></string>
+    <string name="pass_period">Pass Period : <font color='#F80404'>*</font></string>
+    <string name="end_date">End Date : <font color='#F80404'>*</font></string>
+    <string name="position">Position : <font color='#F80404'>*</font></string>
+    <string name="end_date_hint">End Date</string>
+    <string name="position_hint">Enter Position</string>
+
+    <string name="image_capturing">image capture Description</string>
+    <string name="capture">Capture</string>
+    <string name="browse">Browse</string>
+    <string name="back">Back</string>
+    <string name="clear">Clear</string>
+    <string name="next">Next</string>
+    <string name="pass_route_selection">Pass / Route Selection</string>
+    <string name="distance_wise_pass">Distance wise Pass</string>
+    <string name="fixed_pass">Fixed Pass</string>
+    <string name="doc_upload">Document Upload</string>
+
+    <string name="pass_type_and_validity">Pass Type and Validity</string>
+    <string name="select_stop">Select Stop</string>
+    <string name="concession_detail">Concession Details</string>
+
+    <string name="fare_calculation">Fare Calculation</string>
+    <string name="pass_detail">Pass Details</string>
+    <string name="total_fare">Total Fare </string>
+    <string name="admin_fees">Administrative Fees</string>
+    <string name="card_fees">Card Fees </string>
+    <string name="rfid_card_fees">RFID Card Fees </string>
+    <string name="trans_date">Transation Date </string>
+    <string name="exp_date">Expiry Date </string>
+    <string name="total_amt">Total Amount </string>
+
+    <string name="charg_detail">Charges Details </string>
+    <string name="base_fare">Base Fare </string>
+    <string name="acc">ACC </string>
+    <string name="hr">HR </string>
+    <string name="octroi">Octroi </string>
+    <string name="it">IT </string>
+    <string name="toll">Toll </string>
+
+    <string name="rsrtc_online_cust_feedback">RSRTC Online Customer Feedback</string>
+    <string name="name">Name : <font color='#F80404'>*</font></string>
+    <string name="card_id">Card ID : <font color='#F80404'>*</font></string>
+    <string name="subject">Subject : <font color='#F80404'>*</font></string>
+    <string name="e_mail">Email : <font color='#F80404'>*</font></string>
+    <string name="feedback">Feedback : <font color='#F80404'>*</font></string>
+    <string name="btn_submit">Submit</string>
+    <string name="search_route">Search Route</string>
+    <string name="full_name">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <string-array name="title">
+        <item>Title</item>
+        <item>Mr</item>
+        <item>Mrs</item>
+        <item>Miss</item>
+    </string-array>
+
+    <string-array name="gender1">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="id_proof">
+        <item>Select Proof ID</item>
+        <item>Aadhar Card</item>
+        <item>Driving License</item>
+        <item>Pan Card</item>
+        <item>Pass Port</item>
+        <item>Rashan Card</item>
+        <item>Student Card</item>
+        <item>Voter Id</item>
+        <item>Govt Id Card</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="Concession_Proof">
+        <item>Select Concession Proof</item>
+        <item>Aadhar Card</item>
+        <item>Driving License</item>
+        <item>Pan Card</item>
+        <item>Pass Port</item>
+        <item>Rashan Card</item>
+        <item>Student Card</item>
+        <item>Voter Id</item>
+        <item>Govt Id Card</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="Addresss_Proof">
+        <item>Select Address Proof</item>
+        <item>Aadhar Card</item>
+        <item>Driving License</item>
+        <item>Pan Card</item>
+        <item>Pass Port</item>
+        <item>Rashan Card</item>
+        <item>Student Card</item>
+        <item>Voter Id</item>
+        <item>Govt Id Card</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string-array name="pass_holder">
+        <item>Select</item>
+        <item>Monthly Passes</item>
+    </string-array>
+
+    <string-array name="pass_type">
+        <item>Select</item>
+        <item>Monthly</item>
+        <item>BI Monthly</item>
+        <item>Quarterly</item>
+    </string-array>
+
+    <string-array name="pass_period">
+        <item>Select</item>
+        <item>1 YEAR</item>
+        <item>2 YEAR</item>
+        <item>3 YEAR</item>
+        <item>4 YEAR</item>
+        <item>5 YEAR</item>
+
+    </string-array>
+
+    <string-array name="bus_type">
+        <item>Select Bus Tpye</item>
+        <item>EXPRESS</item>
+        <item>ORDINARY</item>
+
+    </string-array>
+
+
+</resources>

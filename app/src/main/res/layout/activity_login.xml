@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.rstc.model.request.LoginModel" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.auth.login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+<!--    <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Enter Mobile Number"-->
+<!--        android:layout_marginTop="160dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:background="@drawable/rounded_corner"-->
+<!--        android:layout_marginRight="16dp"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilMobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:focusableInTouchMode="true"
+            android:backgroundTint="#FFFFFF"
+            android:inputType="number"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tieMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Mobile Number"
+                android:maxLength="10"
+                android:text="@={model.mobileNo}"
+                android:backgroundTint="#FFFFFF"
+                android:inputType="number"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#FB0303"
+            android:focusable="true"
+            android:background="@drawable/rounded_corner"
+            android:focusableInTouchMode="true"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#FFFFFF"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter password"
+                android:text="@={model.password}"
+                android:backgroundTint="#FFFFFF"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:ems="10"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+<!--            <EditText-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Enter Password"-->
+<!--        android:padding="5dp"-->
+<!--        app:passwordToggleEnabled="true"-->
+<!--        android:focusable="true"-->
+<!--        app:passwordToggleTint="#F60404"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:background="@drawable/rounded_corner"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginRight="16dp"/>-->
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="New User Please Register Here!"
+        android:textColor="#000080"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:textSize="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Forgot Password"
+            android:textColor="#000080"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:textSize="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/simpleProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
+
+</layout>
