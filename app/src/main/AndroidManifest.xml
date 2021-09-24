@@ -22,6 +22,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.activity.report.ReportActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.drawer.RechargeCardActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.auth.forgot.ForgotPasswordActivity"
             android:exported="true" />
         <activity android:name=".PaymentActivity" />
@@ -49,7 +55,6 @@
             </intent-filter>
         </activity>
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -59,8 +64,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-
     </application>
 
 </manifest>

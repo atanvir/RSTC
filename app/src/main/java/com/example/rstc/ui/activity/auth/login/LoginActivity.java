@@ -97,6 +97,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
                if(binding.getModel().getMobileNo().equals(response.body().get(i).getMobileNo())){
                    if(binding.getModel().getPassword().equals(response.body().get(i).getPassword())){
+                       getSharedPreferences("abc",MODE_PRIVATE).edit().putString("emailId",response.body().get(i).getEmailId()).apply();
                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                        break;
                    }else{

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+
+        <variable
+            name="model"
+            type="com.example.rstc.model.response.CardModel" />
+    </data>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="4"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvGuid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{model.guid}"
+        android:textSize="16dp"
+        android:gravity="center"
+
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{model.transactionId}"
+        android:gravity="center"
+        android:textSize="16dp"
+
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{model.transactionAmt}"
+
+        android:gravity="center"
+
+        android:textSize="16dp"
+
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{model.transactionDate}"
+
+        android:gravity="center"
+
+        android:textSize="16dp"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>
+</layout>

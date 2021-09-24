@@ -2,6 +2,7 @@ package com.example.rstc;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -13,17 +14,23 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.rstc.ui.activity.auth.login.LoginActivity;
+import com.example.rstc.ui.activity.drawer.RechargeCardActivity;
+import com.example.rstc.ui.activity.report.ReportActivity;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -91,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     StringBuilder fromStop = new StringBuilder();
     String dataParsed1 = "";
     List<String> list1 = new ArrayList<String>();
+    ImageView ivHumberger;
+    DrawerLayout drawerLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -99,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         applicant_Id = findViewById(R.id.id);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        ivHumberger = findViewById(R.id.ivHumberger);
         firstName = findViewById(R.id.first_name);
         middleName = findViewById(R.id.middle_name);
         lastName = findViewById(R.id.last_name);
@@ -108,6 +119,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         phoneNo = findViewById(R.id.phn_no);
         proofDetl = findViewById(R.id.proof_details);
         progressBar = findViewById(R.id.simpleProgressBar);
+        findViewById(R.id.tvRechargeCard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RechargeCardActivity.class));
+            }
+        });
+        findViewById(R.id.tvReport).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ReportActivity.class));
+            }
+        });
+        findViewById(R.id.tvLogout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
 
         date_text_view = findViewById(R.id.date_pick);
         uNext = findViewById(R.id.next);
@@ -133,6 +163,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
         idSpinner.setOnItemSelectedListener(this);
         passSpinner.setOnItemSelectedListener(this);
+        ivHumberger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
 
 
         //   ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,gender);
