@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="com.example.rstc.model.request.LoginModel" />
+            type="com.example.rsrtcs.model.request.LoginModel" />
     </data>
 <RelativeLayout
     android:layout_width="match_parent"

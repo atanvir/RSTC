@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.rstc">
+    package="com.example.rsrtcs">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,31 +22,31 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
-            android:name=".ui.activity.report.ReportActivity"
+            android:name="com.example.rsrtcs.ui.activity.report.ReportActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.drawer.RechargeCardActivity"
+            android:name="com.example.rsrtcs.ui.activity.drawer.RechargeCardActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.auth.forgot.ForgotPasswordActivity"
+            android:name="com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity"
             android:exported="true" />
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".StatusActivity" />
-        <activity android:name=".FixPassFareCalculation" />
-        <activity android:name=".ConcessionDetail" />
-        <activity android:name=".ui.activity.auth.login.LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".UploadDocuments" />
-        <activity android:name=".PassTypeActivity" />
-        <activity android:name=".CustomerFeedback" />
-        <activity android:name=".SelectRouteActivity" />
-        <activity android:name=".ImageCaptureActivity" />
-        <activity android:name=".FareCalculation" />
-        <activity android:name=".PassRouteSelection" />
-        <activity android:name=".ApiActivity" />
-        <activity android:name=".ui.activity.auth.signup.SignupActivity" />
+        <activity android:name="com.example.rsrtcs.PaymentActivity" />
+        <activity android:name="com.example.rsrtcs.StatusActivity" />
+        <activity android:name="com.example.rsrtcs.FixPassFareCalculation" />
+        <activity android:name="com.example.rsrtcs.ConcessionDetail" />
+        <activity android:name="com.example.rsrtcs.ui.activity.auth.login.LoginActivity" />
+        <activity android:name="com.example.rsrtcs.MainActivity" />
+        <activity android:name="com.example.rsrtcs.UploadDocuments" />
+        <activity android:name="com.example.rsrtcs.PassTypeActivity" />
+        <activity android:name="com.example.rsrtcs.CustomerFeedback" />
+        <activity android:name="com.example.rsrtcs.SelectRouteActivity" />
+        <activity android:name="com.example.rsrtcs.ImageCaptureActivity" />
+        <activity android:name="com.example.rsrtcs.FareCalculation" />
+        <activity android:name="com.example.rsrtcs.PassRouteSelection" />
+        <activity android:name="com.example.rsrtcs.ApiActivity" />
+        <activity android:name="com.example.rsrtcs.ui.activity.auth.signup.SignupActivity" />
         <activity
-            android:name=".ui.activity.splash.SplashActivity"
+            android:name="com.example.rsrtcs.ui.activity.splash.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

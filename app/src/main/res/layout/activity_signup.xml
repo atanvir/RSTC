@@ -8,7 +8,7 @@
 
         <variable
             name="data"
-            type="com.example.rstc.model.request.SignupModel" />
+            type="com.example.rsrtcs.model.request.SignupModel" />
 
     </data>
 <RelativeLayout

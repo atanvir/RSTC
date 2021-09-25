@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.example.rstc.model.response.CardModel" />
+            type="com.example.rsrtcs.model.response.CardModel" />
     </data>
     <LinearLayout
     android:layout_width="match_parent"
