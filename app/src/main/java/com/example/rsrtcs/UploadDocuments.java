@@ -347,7 +347,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
         URL url = null;
         String requestStatus = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/BillDeskRequest");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/BillDeskRequest");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);
@@ -605,7 +605,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 
         URL url = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/SaveRegistration");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/SaveRegistration");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);

@@ -13,7 +13,7 @@ import com.example.rsrtcs.model.request.ReportModel;
 import com.example.rsrtcs.model.response.CardModel;
 import com.example.rsrtcs.repository.RSRTCConnection;
 import com.example.rsrtcs.repository.RSRTCInterface;
-import com.example.rsrtcs.ui.ReportAdapter;
+import com.example.rsrtcs.ui.adapter.ReportAdapter;
 
 import java.util.List;
 

@@ -3,9 +3,18 @@ package com.example.rsrtcs.model.response;
 public class CardModel {
     private String amount;
     private String guid;
+    private String cardNo;
     private String TransactionId;
     private String TransactionAmt;
     private String TransactionDate;
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
 
     public String getGuid() {
         return guid;

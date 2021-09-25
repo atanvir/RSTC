@@ -70,7 +70,7 @@ public class StatusActivity extends AppCompatActivity {
         URL url = null;
         String responceStatus = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/BillDeskResponse");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/BillDeskResponse");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);

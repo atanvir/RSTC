@@ -71,6 +71,9 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        if(getIntent().getStringExtra("amount")!=null){
+            fees=getIntent().getStringExtra("amount");
+        }
 
 
         btnPayNow = (Button) findViewById(R.id.btnPayNow);
@@ -120,7 +123,7 @@ public class PaymentActivity extends AppCompatActivity {
         URL url = null;
         String requestStatus = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/BillDeskRequest");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/BillDeskRequest");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);

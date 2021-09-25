@@ -39,7 +39,7 @@ public interface RSRTCInterface {
 
 
     @POST(CARD_DATA)
-    Call<CardModel>  getCardData(@Body CardDataModel model);
+    Call<List<CardModel>>  getCardData(@Body CardDataModel model);
 
 
     @POST(ONLINE_RECHARGE)

@@ -580,7 +580,7 @@ public class ConcessionDetail extends AppCompatActivity implements AdapterView.O
 
         URL url = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/GetConcessionMaster");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/GetConcessionMaster");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);
@@ -677,7 +677,7 @@ public class ConcessionDetail extends AppCompatActivity implements AdapterView.O
 
         URL url = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/GetConcessionMaster");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/GetConcessionMaster");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);

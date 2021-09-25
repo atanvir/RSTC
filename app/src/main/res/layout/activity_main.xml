@@ -565,7 +565,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:background="@android:color/transparent">
+                android:background="@color/white">
 
                 <include
                     android:id="@+id/clDrawer"

@@ -1,4 +1,4 @@
-package com.example.rsrtcs.ui;
+package com.example.rsrtcs.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

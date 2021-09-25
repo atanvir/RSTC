@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RSRTCConnection {
-    public String BASE_URL="http://115.124.127.204/rsrtcapi/";
+    public String BASE_URL="https://rsrtcrfidsystem.co.in/rsrtcapi/";
     public String SMS_BASE_URL="http://Services.m-techinnovations.com/SMSSendService/SMSSendService.svc/";
 
 

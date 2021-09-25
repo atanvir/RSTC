@@ -63,6 +63,7 @@ public class FixPassFareCalculation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fix_pass_fare_calculation);
 
+
         tvTransDate = findViewById(R.id.trans_date);
         tvExpiryDate = findViewById(R.id.exp_date);
         tvCardFees = findViewById(R.id.card_fees);
@@ -272,7 +273,7 @@ public class FixPassFareCalculation extends AppCompatActivity {
 
         URL url = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/SaveRegistration");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/SaveRegistration");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);

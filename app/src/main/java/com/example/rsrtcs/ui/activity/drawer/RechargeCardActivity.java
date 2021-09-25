@@ -20,11 +20,13 @@ import com.example.rsrtcs.model.response.CardModel;
 import com.example.rsrtcs.repository.RSRTCConnection;
 import com.example.rsrtcs.repository.RSRTCInterface;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RechargeCardActivity extends BaseActivity<ActivityRechargeCardBinding> implements View.OnClickListener, TextWatcher, Callback<CardModel> {
+public class RechargeCardActivity extends BaseActivity<ActivityRechargeCardBinding> implements View.OnClickListener, TextWatcher, Callback<List<CardModel>> {
 
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
 
@@ -77,17 +79,21 @@ public class RechargeCardActivity extends BaseActivity<ActivityRechargeCardBindi
     }
 
     @Override
-    public void onResponse(Call<CardModel> call, Response<CardModel> response) {
+    public void onResponse(Call<List<CardModel>> call, Response<List<CardModel>> response) {
         if(response.isSuccessful()){
-            getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE).edit().putString("cardNo", binding.tieEmail.getText().toString()).apply();
-            dismissLoadingDialog();
-            startActivity(new Intent(RechargeCardActivity.this,PaymentActivity.class).putExtra("amount", response.body().getAmount()));
+            for(int i=0;i<response.body().size();i++){
+                if(binding.getData().getCardNo().equalsIgnoreCase(response.body().get(i).getCardNo())){
+                    getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE).edit().putString("cardNo", binding.tieEmail.getText().toString()).apply();
+                    dismissLoadingDialog();
+                    startActivity(new Intent(RechargeCardActivity.this,PaymentActivity.class).putExtra("amount", response.body().get(i).getAmount()));
+                }
+            }
 
         }
     }
 
     @Override
-    public void onFailure(Call<CardModel> call, Throwable t) {
+    public void onFailure(Call<List<CardModel>> call, Throwable t) {
         dismissLoadingDialog();
         showSnackBar(binding.getRoot(),t.getMessage());
     }

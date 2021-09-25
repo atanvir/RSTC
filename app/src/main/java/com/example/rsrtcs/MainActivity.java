@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         URL url = null;
         try {
-            url = new URL("http://115.124.127.204/rsrtcapi/GetProofMaster");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/GetProofMaster");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);
@@ -622,7 +622,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         URL url = null;
         try {
            // url = new URL("http://122.15.66.234:8080/RFIDAPI/getDepotInfo");
-            url = new URL("http://115.124.127.204/rsrtcapi/GetDepotMaster");
+            url = new URL("https://rsrtcrfidsystem.co.in/rsrtcapi/GetDepotMaster");
             //  url= new URL("http://122.15.66.234:8080/RFIDAPI/busType");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");
