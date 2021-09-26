@@ -139,6 +139,4 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
             showSnackBar(binding.getRoot(),"Please allow permission");
         }
     }
-
-
 }
