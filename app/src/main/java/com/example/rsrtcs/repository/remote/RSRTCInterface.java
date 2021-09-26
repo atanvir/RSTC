@@ -1,12 +1,16 @@
-package com.example.rsrtcs.repository;
+package com.example.rsrtcs.repository.remote;
 
-import static com.example.rsrtcs.repository.RSRTCConstants.CARD_DATA;
-import static com.example.rsrtcs.repository.RSRTCConstants.FORGOT;
-import static com.example.rsrtcs.repository.RSRTCConstants.ONLINE_RECHARGE;
-import static com.example.rsrtcs.repository.RSRTCConstants.SEND_SMS;
-import static com.example.rsrtcs.repository.RSRTCConstants.LOGIN;
-import static com.example.rsrtcs.repository.RSRTCConstants.SIGNUP;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.CARD_DATA;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.CONCESSION_TYPE;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.DEPOT;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.FORGOT;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.ONLINE_RECHARGE;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.PROOF;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.SEND_SMS;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.LOGIN;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.SIGNUP;
 
+import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.request.CardDataModel;
 import com.example.rsrtcs.model.request.ForgotModel;
 import com.example.rsrtcs.model.request.ReportModel;
@@ -44,4 +48,15 @@ public interface RSRTCInterface {
 
     @POST(ONLINE_RECHARGE)
     Call<List<CardModel>>  report(@Body ReportModel model);
+
+
+    @POST(DEPOT)
+    Call<List<SpinnerDataModel>> depotApi();
+
+    @POST(PROOF)
+    Call<List<SpinnerDataModel>> getProofApi();
+
+
+    @POST(CONCESSION_TYPE)
+    Call<List<SpinnerDataModel>> getConcessionTypeMaster();
 }

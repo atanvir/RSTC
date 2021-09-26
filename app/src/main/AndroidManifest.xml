@@ -22,10 +22,10 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
-            android:name="com.example.rsrtcs.ui.activity.report.ReportActivity"
+            android:name=".ui.activity.drawer.report.ReportActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.rsrtcs.ui.activity.drawer.RechargeCardActivity"
+            android:name="com.example.rsrtcs.ui.activity.drawer.card.RechargeCardActivity"
             android:exported="true" />
         <activity
             android:name="com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity"
@@ -35,12 +35,12 @@
         <activity android:name="com.example.rsrtcs.FixPassFareCalculation" />
         <activity android:name="com.example.rsrtcs.ConcessionDetail" />
         <activity android:name="com.example.rsrtcs.ui.activity.auth.login.LoginActivity" />
-        <activity android:name="com.example.rsrtcs.MainActivity" />
+        <activity android:name="com.example.rsrtcs.ui.activity.main.MainActivity" />
         <activity android:name="com.example.rsrtcs.UploadDocuments" />
         <activity android:name="com.example.rsrtcs.PassTypeActivity" />
         <activity android:name="com.example.rsrtcs.CustomerFeedback" />
         <activity android:name="com.example.rsrtcs.SelectRouteActivity" />
-        <activity android:name="com.example.rsrtcs.ImageCaptureActivity" />
+        <activity android:name="com.example.rsrtcs.ui.activity.capture.ImageCaptureActivity" />
         <activity android:name="com.example.rsrtcs.FareCalculation" />
         <activity android:name="com.example.rsrtcs.PassRouteSelection" />
         <activity android:name="com.example.rsrtcs.ApiActivity" />

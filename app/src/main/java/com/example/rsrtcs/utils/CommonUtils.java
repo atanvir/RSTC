@@ -12,8 +12,12 @@ import android.net.Uri;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.rsrtcs.R;
+import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -90,6 +94,22 @@ public class CommonUtils {
             return false;
         }
     }
+
+    public static void setSpinner(Spinner spinner, int id) {
+        ArrayAdapter<CharSequence> title_Adapter = ArrayAdapter.createFromResource(spinner.getContext(),id, android.R.layout.simple_spinner_item);
+        title_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(title_Adapter);
+    }
+
+
+    public static void setSpinner(Spinner spinner, List<String> list) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(spinner.getContext(), android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+    }
+
+
 
     public Intent getPickIntent(Context context, Uri cameraOutputUri) {
         final List<Intent> intents = new ArrayList<Intent>();

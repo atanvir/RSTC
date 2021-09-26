@@ -1,4 +1,4 @@
-package com.example.rsrtcs.repository;
+package com.example.rsrtcs.repository.remote;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

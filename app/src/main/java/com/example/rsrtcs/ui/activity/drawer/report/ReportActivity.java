@@ -1,5 +1,8 @@
-package com.example.rsrtcs.ui.activity.report;
+package com.example.rsrtcs.ui.activity.drawer.report;
 
+import static com.example.rsrtcs.repository.cache.PrefrenceHelper.getPrefrenceStringValue;
+import static com.example.rsrtcs.repository.cache.PrefrenceHelper.writePrefrencesValue;
+import static com.example.rsrtcs.repository.cache.PrefrenceKeyConstant.PREF_NAME;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 
@@ -11,8 +14,9 @@ import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityReportBinding;
 import com.example.rsrtcs.model.request.ReportModel;
 import com.example.rsrtcs.model.response.CardModel;
-import com.example.rsrtcs.repository.RSRTCConnection;
-import com.example.rsrtcs.repository.RSRTCInterface;
+import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.ui.adapter.ReportAdapter;
 
 import java.util.List;
@@ -34,7 +38,7 @@ public class ReportActivity extends BaseActivity<ActivityReportBinding> {
     @Override
     protected void init() {
         showLoadingDialog(this);
-        apiInterface.report(new ReportModel(getSharedPreferences("abc",MODE_PRIVATE).getString("emailId",""))).enqueue(new Callback<List<CardModel>>() {
+        apiInterface.report(new ReportModel(getPrefrenceStringValue(this, PrefrenceKeyConstant.EMAIL_ID))).enqueue(new Callback<List<CardModel>>() {
             @Override
             public void onResponse(Call<List<CardModel>> call, Response<List<CardModel>> response) {
                 dismissLoadingDialog();

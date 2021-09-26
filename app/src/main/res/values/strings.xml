@@ -82,6 +82,7 @@
     <string name="btn_submit">Submit</string>
     <string name="search_route">Search Route</string>
     <string name="full_name">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="internal_server_error">Internal Server Error</string>
 
     <string-array name="title">
         <item>Title</item>

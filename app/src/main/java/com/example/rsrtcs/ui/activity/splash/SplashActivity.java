@@ -22,9 +22,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     }
 
     @Override
-    protected void initCtrl() {
-
-    }
+    protected void initCtrl() { }
 
 
     private void loadIntent() {

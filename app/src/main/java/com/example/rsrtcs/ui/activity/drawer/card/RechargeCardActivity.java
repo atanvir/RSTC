@@ -1,4 +1,4 @@
-package com.example.rsrtcs.ui.activity.drawer;
+package com.example.rsrtcs.ui.activity.drawer.card;
 
 import static com.example.rsrtcs.FixPassFareCalculation.MyPREFERENCES;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
@@ -17,8 +17,8 @@ import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityRechargeCardBinding;
 import com.example.rsrtcs.model.request.CardDataModel;
 import com.example.rsrtcs.model.response.CardModel;
-import com.example.rsrtcs.repository.RSRTCConnection;
-import com.example.rsrtcs.repository.RSRTCInterface;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 
 import java.util.List;
 

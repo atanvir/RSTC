@@ -1,5 +1,6 @@
 package com.example.rsrtcs.ui.activity.auth.login;
 
+import static com.example.rsrtcs.repository.cache.PrefrenceHelper.saveUserData;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.isOnline;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
@@ -10,14 +11,14 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.rsrtcs.MainActivity;
+import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityLoginBinding;
 import com.example.rsrtcs.model.response.AuthModel;
 import com.example.rsrtcs.model.request.LoginModel;
-import com.example.rsrtcs.repository.RSRTCConnection;
-import com.example.rsrtcs.repository.RSRTCInterface;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity;
 import com.example.rsrtcs.ui.activity.auth.signup.SignupActivity;
 import com.example.rsrtcs.utils.MultiTextWatcher;
@@ -97,7 +98,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
                if(binding.getModel().getMobileNo().equals(response.body().get(i).getMobileNo())){
                    if(binding.getModel().getPassword().equals(response.body().get(i).getPassword())){
-                       getSharedPreferences("abc",MODE_PRIVATE).edit().putString("emailId",response.body().get(i).getEmailId()).apply();
+                       saveUserData(LoginActivity.this,response.body().get(i));
                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                        break;
                    }else{

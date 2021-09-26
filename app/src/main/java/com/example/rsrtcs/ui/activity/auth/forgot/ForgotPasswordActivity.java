@@ -16,8 +16,8 @@ import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityForgotPasswordBinding;
 import com.example.rsrtcs.model.request.ForgotModel;
 import com.example.rsrtcs.model.response.AuthModel;
-import com.example.rsrtcs.repository.RSRTCConnection;
-import com.example.rsrtcs.repository.RSRTCInterface;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.utils.MultiTextWatcher;
 
 import retrofit2.Call;

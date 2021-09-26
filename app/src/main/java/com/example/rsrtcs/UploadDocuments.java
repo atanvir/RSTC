@@ -1,6 +1,9 @@
 package com.example.rsrtcs;
 
 import static com.example.rsrtcs.FixPassFareCalculation.fees;
+import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
+import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
+import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -33,6 +36,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.billdesk.sdk.PaymentOptions;
+import com.example.rsrtcs.model.request.SpinnerDataModel;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.utils.CommonUtils;
 import com.example.rsrtcs.utils.FilePath;
 import com.example.rsrtcs.utils.ImageUtil;
@@ -67,7 +73,13 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class UploadDocuments extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private RSRTCInterface apiInterface= new RSRTCConnection().createService();
 
     TextView textView1,textView2,textView3;
     Button btnUpload, selectBtn;
@@ -187,13 +199,36 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
         concession.setOnItemSelectedListener(this);
         addrProof.setOnItemSelectedListener(this);
 
+        showLoadingDialog(this);
+        apiInterface.getConcessionTypeMaster().enqueue(new Callback<List<SpinnerDataModel>>() {
+            @Override
+            public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
+                if(response.isSuccessful()){
+                    List<String> list = new ArrayList<String>();
+                    for(int i=0;i<response.body().size();i++){ list.add(response.body().get(i).getConcessionName()); }
+                    list.add(0,"Select Concession Proof");
+
+                    CommonUtils.setSpinner(concession,list);
+
+                }else{
+                    dismissLoadingDialog();
+                    Toast.makeText(UploadDocuments.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SpinnerDataModel>> call, Throwable t) {
+                dismissLoadingDialog();
+                Toast.makeText(UploadDocuments.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         ArrayAdapter<CharSequence> passHolderAdapter1 = ArrayAdapter.createFromResource(this, R.array.id_proof, android.R.layout.simple_spinner_item);
         passHolderAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         idProof.setAdapter(passHolderAdapter1);
 
-        ArrayAdapter<CharSequence> passHolderAdapter2 = ArrayAdapter.createFromResource(this, R.array.Concession_Proof, android.R.layout.simple_spinner_item);
-        passHolderAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        concession.setAdapter(passHolderAdapter2);
 
         ArrayAdapter<CharSequence> passHolderAdapter3 = ArrayAdapter.createFromResource(this, R.array.Addresss_Proof, android.R.layout.simple_spinner_item);
         passHolderAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -272,28 +307,15 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 
                 if(register.getText().toString().equals("Register")){
 
-                if (idProof.getSelectedItemPosition() == 0 || concession.getSelectedItemPosition() == 0 || addrProof.getSelectedItemPosition() == 0) {
-                    Toast.makeText(UploadDocuments.this, "Please Select Proof Details!", Toast.LENGTH_SHORT).show();
-                }
-//                else if (textView1.equals("Choose File") || textView2.equals("Choose File") || textView3.equals("Choose File")) {
-//                     Toast.makeText(UploadDocuments.this, "Please Select All Documents!", Toast.LENGTH_SHORT).show();
-//                 }
-                else {
+                if (idProof.getSelectedItemPosition() >= 0 || concession.getSelectedItemPosition() >= 0 || addrProof.getSelectedItemPosition() >= 0) {
                     getAllRegisterData();
                     register.setText("Pay Now");
-
-                //    new GetLongLat("D").execute();
-                     //   new GetLongLat("E").execute();
-                 //   new AsyncCaller4().execute();
-
-                 //   inserDataToSQL(appId, name, mName, lName, mob, eml, addr, proof, title, gen, id, dob);
                     inserDataToSQL(appId, hex1, hex2, hex3);
-
-                  //  progressBar.setVisibility(View.VISIBLE);
-
                     Toast.makeText(UploadDocuments.this, "Documents Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                 //   progressBar.setVisibility(View.GONE);
                     finish();
+                }
+                else {
+                    Toast.makeText(UploadDocuments.this, "Please Select Proof Details!", Toast.LENGTH_SHORT).show();
                 }
             }
             else{

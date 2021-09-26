@@ -4,7 +4,6 @@
 
     <data>
 
-
         <variable
             name="model"
             type="com.example.rsrtcs.model.response.CardModel" />
@@ -21,11 +20,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner"
-
         android:text="@{model.guid}"
         android:textSize="16dp"
         android:gravity="center"
-
         android:layout_weight="1"/>
 
     <TextView
@@ -33,10 +30,8 @@
         android:layout_height="wrap_content"
         android:text="@{model.transactionId}"
         android:background="@drawable/rounded_corner"
-
         android:gravity="center"
         android:textSize="16dp"
-
         android:layout_weight="1"/>
 
     <TextView
@@ -44,22 +39,15 @@
         android:layout_height="wrap_content"
         android:text="@{model.transactionAmt}"
         android:background="@drawable/rounded_corner"
-
-
         android:gravity="center"
-
         android:textSize="16dp"
-
         android:layout_weight="1"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@{model.transactionDate}"
         android:background="@drawable/rounded_corner"
-
-
         android:gravity="center"
-
         android:textSize="16dp"
         android:layout_weight="1"/>
 
