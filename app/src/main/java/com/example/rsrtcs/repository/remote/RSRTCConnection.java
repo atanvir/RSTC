@@ -12,7 +12,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RSRTCConnection {
+
+//    public String BASE_URL="http://115.124.127.204/rsrtcapi/";
+
     public String BASE_URL="https://rsrtcrfidsystem.co.in/rsrtcapi/";
+    public String BASE_URL_RFIDAPI="http://122.15.66.234:8080/RFIDAPI/";
     public String SMS_BASE_URL="http://Services.m-techinnovations.com/SMSSendService/SMSSendService.svc/";
 
 
@@ -26,6 +30,22 @@ public class RSRTCConnection {
         httpClient.addInterceptor(logging);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
+                .build();
+        return retrofit.create(RSRTCInterface.class);
+    }
+
+    public RSRTCInterface createServiceRFIDAPI()  {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);//
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.readTimeout(1, TimeUnit.MINUTES);
+        httpClient.readTimeout(1, TimeUnit.MINUTES);
+
+        httpClient.addInterceptor(logging);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL_RFIDAPI)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();

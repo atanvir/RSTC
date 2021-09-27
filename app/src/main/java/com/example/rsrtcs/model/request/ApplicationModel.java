@@ -1,20 +1,57 @@
 package com.example.rsrtcs.model.request;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ApplicationModel {
+
+    @SerializedName("ApplicantID")
     private String ApplicantId;
+
+    @SerializedName("FName")
     private String name;
+
+
+    @SerializedName("MName")
     private String middle_name;
+
+
+    @SerializedName("LName")
     private String last_name;
+
+
+
+    @SerializedName("MobileNo")
     private String mobile;
+
+
+    @SerializedName("PhoneNo")
     private String phoneNo;
+
+    @SerializedName("EmailID")
     private String email;
+
+
+
+    @SerializedName("Address")
     private String address;
+
+    @SerializedName("ProofID")
     private String id_proof;
+
+    @SerializedName("Title")
     private String title;
+
+    @SerializedName("Gender")
     private String gen;
+
+
     private String idproof;
+
+    @SerializedName("ProofDetails")
     private String proofDetail;
 
+
+    @SerializedName("DOB")
     private String dob;
 
 

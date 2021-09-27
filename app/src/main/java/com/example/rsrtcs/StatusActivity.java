@@ -2,10 +2,14 @@ package com.example.rsrtcs;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.rsrtcs.ui.activity.main.MainActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -58,9 +62,13 @@ public class StatusActivity extends AppCompatActivity {
         String statusResponce = bundle.getString("status");
 
         statusSavedInSQL(statusResponce);
+        Toast.makeText(StatusActivity.this, "Registration Completed", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
 
-        status.setText(statusResponce);
-        finish();
+
+
+//        status.setText(statusResponce);
+        //finish();
 
 
     }
@@ -176,4 +184,6 @@ public class StatusActivity extends AppCompatActivity {
 
 
     }
+
+
 }

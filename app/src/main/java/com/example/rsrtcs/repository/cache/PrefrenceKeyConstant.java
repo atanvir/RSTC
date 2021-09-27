@@ -8,6 +8,11 @@ public interface PrefrenceKeyConstant extends Serializable {
 
     // Registration
     String Application_id="ApplicantId";
+    String MM="mm";
+    String ED="ed";
+    String SELECTED_1="selected1";
+    String SELECTED_2="selected2";
+    String SELECTED_3="selected3";
     String FIRST_NAME="name";
     String MIDDLE_NAME="middle_name";
     String LAST_NAME="last_name";

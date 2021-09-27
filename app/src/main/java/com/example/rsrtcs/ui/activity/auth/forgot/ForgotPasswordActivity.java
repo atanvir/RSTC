@@ -20,11 +20,13 @@ import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.utils.MultiTextWatcher;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordBinding> implements View.OnClickListener, MultiTextWatcher.TextWatcherWithInstance, Callback<AuthModel> {
+public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordBinding> implements View.OnClickListener, MultiTextWatcher.TextWatcherWithInstance, Callback<List<AuthModel>> {
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
 
 
@@ -58,22 +60,20 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
 
     private boolean checkValidation() {
         boolean ret=true;
-        if(binding.getData().getEmailId().length()==0){
+        if(binding.getData().getMobileNo().length()==0){
             ret=false;
             binding.tilEmail.setErrorEnabled(true);
-            binding.tilEmail.setError("Please enter email id");
+            binding.tilEmail.setError("Please enter mobile no");
+        } if(binding.getData().getMobileNo().length()!=10){
+            ret=false;
+            binding.tilEmail.setErrorEnabled(true);
+            binding.tilEmail.setError("Please enter valid mobile no");
         }
 
-        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.getData().getEmailId()).matches()){
-            ret=false;
-            binding.tilEmail.setErrorEnabled(true);
-            binding.tilEmail.setError("Please enter valid email id");
-        }
         else if(!isOnline(this)){
             ret=false;
             showSnackBar(binding.getRoot(),"Please turn on internet");
         }
-
 
         return ret;
     }
@@ -96,16 +96,25 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     }
 
     @Override
-    public void onResponse(Call<AuthModel> call, Response<AuthModel> response) {
+    public void onResponse(Call<List<AuthModel>> call, Response<List<AuthModel>> response) {
         dismissLoadingDialog();
-        if(response.isSuccessful()){
-            Toast.makeText(ForgotPasswordActivity.this, "You will receive an email shortly", Toast.LENGTH_SHORT).show();
-
+        if(response.isSuccessful()) {
+         if(response.body().size()>0){
+             for(AuthModel model:response.body()){
+                 Toast.makeText(ForgotPasswordActivity.this, model.getMsg(), Toast.LENGTH_SHORT).show();
+                 finish();
+                 break;
+             }
+         } else{
+             binding.tilEmail.setErrorEnabled(true);
+             binding.tilEmail.setError("Mobile Number is not yet register, try signup");
+         }
         }
+        else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
     }
 
     @Override
-    public void onFailure(Call<AuthModel> call, Throwable t) {
+    public void onFailure(Call<List<AuthModel>> call, Throwable t) {
         dismissLoadingDialog();
         showSnackBar(binding.getRoot(),t.getMessage());
 

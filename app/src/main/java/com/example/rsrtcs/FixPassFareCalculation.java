@@ -142,7 +142,7 @@ public class FixPassFareCalculation extends AppCompatActivity {
 //                Intent intent = new Intent(FixPassFareCalculation.this,UploadDocuments.class);
 //                startActivity(intent);
 
-                Toast.makeText(FixPassFareCalculation.this, "Record Save Successfully!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FixPassFareCalculation.this, "Record Save Successfully!", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(FixPassFareCalculation.this,UploadDocuments.class));
             }

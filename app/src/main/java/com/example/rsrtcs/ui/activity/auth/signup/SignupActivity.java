@@ -109,7 +109,6 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
             case R.id.btnRegister:
             if(checkValidation()){
                 showLoadingDialog(SignupActivity.this);
-                binding.getData().setMobileNo("8527026788");
                 signInWithCredential(PhoneAuthProvider.getCredential(otp, binding.getData().getOtp()));
             }
             break;
@@ -207,7 +206,7 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
     public void onResponse(Call<AuthModel> call, Response<AuthModel> response) {
         if(response.isSuccessful()){
             if(isOnline(SignupActivity.this)){
-                if(response.body().getResult().equals("Your Registration SuccessFull.")){
+                if(response.body().getResult().equals("Your Registration SuccessFull.")) {
                     Toast.makeText(SignupActivity.this, response.body().getResult(), Toast.LENGTH_SHORT).show();
                     smsApiInterface.sendSMS(new SMSModel("Dear"+binding.getData().getUserName()+", your RFID application no 684956174295 is successfully registered with RSRTC.You will get confirmation when RSRTC Approve your application.RSRTCR",binding.getData().getMobileNo())).enqueue(new Callback<String>() {
                         @Override
@@ -224,7 +223,9 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
                             showSnackBar(binding.getRoot(),t.getMessage());
                         }
                     });
-                }else{
+                }
+                else{
+                    dismissLoadingDialog();
                     binding.tilMobileNo.setErrorEnabled(true);
                     binding.tilMobileNo.setError(response.body().getResult());
 
@@ -232,6 +233,7 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
             }
             else showSnackBar(binding.getRoot(),"Please turn on internet");
         }
+        else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
     }
 
     @Override

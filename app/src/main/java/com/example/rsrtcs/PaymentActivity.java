@@ -49,8 +49,10 @@ public class PaymentActivity extends AppCompatActivity {
 
     // String strPGMsg = "AIRMTST|ARP1553593909862|NA|2|NA|NA|NA|INR|NA|R|airmtst|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|https://uat.billdesk.com/pgidsk/pgmerc/pg_dump.jsp|892409133";
     String strPGMsg = "BDSKUATY|ARP1553593909862|NA|1|NA|NA|NA|INR|NA|R|bdskuaty|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|https://uat.billdesk.com/pgidsk/pgijsp/banksimulator.jsp";
-   // String strPGMsg11 = "|NA|1|NA|NA|NA|INR|NA|R|bdskuaty|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|http://115.124.127.204/pg_dump.aspx";
-    String strPGMsg11 = "|NA|NA|NA|INR|NA|R|bdskuaty|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|http://115.124.127.204/pg_dump.aspx";
+   // String strPGMsg11 = "|NA|1|NA|NA|NA|INR|NA|R|bdskuaty|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|https://rsrtcrfidsystem.co.in/pg_dump.aspx";
+    String strPGMsg11 = "|NA|NA|NA|INR|NA|R|bdskuaty|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|https://rsrtcrfidsystem.co.in/pg_dump.aspx";
+
+//    https://rsrtcrfidsystem.co.in/pg_dump.aspx
 
     String A1 = "BDSKUATY";
 

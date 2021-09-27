@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.rsrtcs.UploadDocuments;
 import com.example.rsrtcs.ui.activity.auth.login.LoginActivity;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivitySplashBinding;

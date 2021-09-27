@@ -16,7 +16,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.rsrtcs.PassRouteSelection;
+import com.example.rsrtcs.ui.activity.route.PassRouteSelectionActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityImageCaptureBinding;
@@ -96,7 +96,7 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
             case R.id.next:
             if (image!=null){
                 PrefrenceHelper.writePrefrencesValue(this).putString("hex1",image).apply();
-                startActivity(new Intent(ImageCaptureActivity.this, PassRouteSelection.class));
+                startActivity(new Intent(ImageCaptureActivity.this, PassRouteSelectionActivity.class));
             }
             else Toast.makeText(ImageCaptureActivity.this, "Please Select The Image!", Toast.LENGTH_SHORT).show();
             break;

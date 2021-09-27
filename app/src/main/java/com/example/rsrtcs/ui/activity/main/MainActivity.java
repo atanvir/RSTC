@@ -80,6 +80,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
                               .registerEditText(binding.tieLastName)
                               .registerEditText(binding.tieDOB)
                               .registerEditText(binding.tieMobileNo)
+                              .registerEditText(binding.tiePhoneNo)
                               .registerEditText(binding.tieAddress)
                               .registerEditText(binding.tieProofDetail)
                               .setCallback(this);
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             binding.tilEmailId.setError("Please enter valid email id");
             binding.tilEmailId.requestFocus();
         }
-        else if(binding.getData().getPhoneNo().trim().length()!=10){
+        else if(binding.getData().getPhoneNo().length()>0 && binding.getData().getPhoneNo().trim().length()!=10){
             ret=false;
             binding.tilPhoneNo.setErrorEnabled(true);
             binding.tilPhoneNo.setError("Please enter valid phone no");
@@ -335,7 +336,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             Calendar selectedDate=Calendar.getInstance();
             selectedDate.set(year,month,dayOfMonth);
 
-            if(calendar.get(Calendar.YEAR)-selectedDate.get(Calendar.YEAR)<=15){
+            if(calendar.get(Calendar.YEAR)-selectedDate.get(Calendar.YEAR)<=5){
                 binding.tilDOB.setErrorEnabled(true);
                 binding.tilDOB.setError("Please select valid dob");
             }
@@ -363,6 +364,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             case R.id.tieLastName: binding.tilLastName.setErrorEnabled(false); break;
             case R.id.tieDOB: binding.tilDOB.setErrorEnabled(false); break;
             case R.id.tieMobileNo: binding.tilMobileNo.setErrorEnabled(false); break;
+            case R.id.tiePhoneNo: binding.tilPhoneNo.setErrorEnabled(false); break;
             case R.id.tieEmailId: binding.tilEmailId.setErrorEnabled(false); break;
             case R.id.tieAddress: binding.tilAddress.setErrorEnabled(false); break;
             case R.id.tieProofDetail: binding.tilProofDetail.setErrorEnabled(false); break;

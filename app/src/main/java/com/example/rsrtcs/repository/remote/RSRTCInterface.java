@@ -4,16 +4,22 @@ import static com.example.rsrtcs.repository.remote.RSRTCConstants.CARD_DATA;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.CONCESSION_TYPE;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.DEPOT;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.FORGOT;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.GET_CONCESSION_MASTER;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.ONLINE_RECHARGE;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.PROOF;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.SEND_SMS;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.LOGIN;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.SIGNUP;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.STOP_NAME;
 
+import android.widget.Spinner;
+
+import com.example.rsrtcs.model.request.ConcessionCodeModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.request.CardDataModel;
 import com.example.rsrtcs.model.request.ForgotModel;
 import com.example.rsrtcs.model.request.ReportModel;
+import com.example.rsrtcs.model.request.StopModel;
 import com.example.rsrtcs.model.response.AuthModel;
 import com.example.rsrtcs.model.request.LoginModel;
 import com.example.rsrtcs.model.request.SMSModel;
@@ -39,7 +45,7 @@ public interface RSRTCInterface {
     Call<String> sendSMS(@Body SMSModel model);
 
     @POST(FORGOT)
-    Call<AuthModel> forgotPassword(@Body ForgotModel data);
+    Call<List<AuthModel>> forgotPassword(@Body ForgotModel data);
 
 
     @POST(CARD_DATA)
@@ -59,4 +65,11 @@ public interface RSRTCInterface {
 
     @POST(CONCESSION_TYPE)
     Call<List<SpinnerDataModel>> getConcessionTypeMaster();
+
+
+    @POST(STOP_NAME)
+    Call<List<SpinnerDataModel>> stopName(@Body StopModel model);
+
+    @POST(GET_CONCESSION_MASTER)
+    Call<List<SpinnerDataModel>> getConcessionMaster(@Body ConcessionCodeModel model);
 }

@@ -218,16 +218,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Mobile Number"
+                android:layout_weight="1"
                 android:text="@={data.mobileNo}"
                 android:backgroundTint="#FFFFFF"
                 android:singleLine="true"
                 android:inputType="phone"
                 android:maxLength="10"
-                android:ems="10"
+                android:ems="10" />
 
-                />
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <Button

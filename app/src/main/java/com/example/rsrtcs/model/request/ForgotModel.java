@@ -1,17 +1,17 @@
 package com.example.rsrtcs.model.request;
 
 public class ForgotModel {
-    private String EmailId;
+    private String MobileNo;
 
-    public ForgotModel(String emailId) {
-        EmailId = emailId;
+    public ForgotModel(String mobileNo) {
+        MobileNo = mobileNo;
     }
 
-    public String getEmailId() {
-        return EmailId;
+    public String getMobileNo() {
+        return MobileNo;
     }
 
-    public void setEmailId(String emailId) {
-        EmailId = emailId;
+    public void setMobileNo(String mobileNo) {
+        MobileNo = mobileNo;
     }
 }

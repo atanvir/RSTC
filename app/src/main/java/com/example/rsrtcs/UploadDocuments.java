@@ -203,12 +203,26 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
         apiInterface.getConcessionTypeMaster().enqueue(new Callback<List<SpinnerDataModel>>() {
             @Override
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
+                dismissLoadingDialog();
                 if(response.isSuccessful()){
                     List<String> list = new ArrayList<String>();
                     for(int i=0;i<response.body().size();i++){ list.add(response.body().get(i).getConcessionName()); }
                     list.add(0,"Select Concession Proof");
 
-                    CommonUtils.setSpinner(concession,list);
+                    CommonUtils.setSpinner(idProof,list);
+
+//                    ArrayAdapter<CharSequence> passHolderAdapter1 = ArrayAdapter<String>(UploadDocuments.this, R.array.id_proof, android.R.layout.simple_spinner_item);
+//                    passHolderAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                    idProof.setAdapter(passHolderAdapter1);
+
+                    ArrayAdapter<CharSequence> passHolderAdapter2 = ArrayAdapter.createFromResource(UploadDocuments.this, R.array.Concession_Proof, android.R.layout.simple_spinner_item);
+                    passHolderAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    concession.setAdapter(passHolderAdapter2);
+
+
+                    ArrayAdapter<CharSequence> passHolderAdapter3 = ArrayAdapter.createFromResource(UploadDocuments.this, R.array.Addresss_Proof, android.R.layout.simple_spinner_item);
+                    passHolderAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    addrProof.setAdapter(passHolderAdapter3);
 
                 }else{
                     dismissLoadingDialog();
@@ -225,14 +239,8 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 
 
 
-        ArrayAdapter<CharSequence> passHolderAdapter1 = ArrayAdapter.createFromResource(this, R.array.id_proof, android.R.layout.simple_spinner_item);
-        passHolderAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        idProof.setAdapter(passHolderAdapter1);
 
 
-        ArrayAdapter<CharSequence> passHolderAdapter3 = ArrayAdapter.createFromResource(this, R.array.Addresss_Proof, android.R.layout.simple_spinner_item);
-        passHolderAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        addrProof.setAdapter(passHolderAdapter3);
 
 
 
@@ -307,12 +315,13 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 
                 if(register.getText().toString().equals("Register")){
 
-                if (idProof.getSelectedItemPosition() >= 0 || concession.getSelectedItemPosition() >= 0 || addrProof.getSelectedItemPosition() >= 0) {
+
+                if (idProof.getSelectedItemPosition() > 0 || concession.getSelectedItemPosition() > 0 || addrProof.getSelectedItemPosition() > 0) {
                     getAllRegisterData();
                     register.setText("Pay Now");
                     inserDataToSQL(appId, hex1, hex2, hex3);
                     Toast.makeText(UploadDocuments.this, "Documents Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                    finish();
+//                    finish();
                 }
                 else {
                     Toast.makeText(UploadDocuments.this, "Please Select Proof Details!", Toast.LENGTH_SHORT).show();
@@ -456,6 +465,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             result.append(":");
             result.append("'");
             if (pair.getName() != "Msg") {
+                if(pair.getValue()!=null)
                 result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
             }else {
                 result.append(pair.getValue());

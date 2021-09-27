@@ -5,6 +5,7 @@ public class SpinnerDataModel {
     private String proofName;
     private String concessionName;
     private String concessionCode;
+    private String busStopName;
 
     public String getConcessionName() {
         return concessionName;
@@ -36,5 +37,13 @@ public class SpinnerDataModel {
 
     public void setDepotName(String depotName) {
         this.depotName = depotName;
+    }
+
+    public String getBusStopName() {
+        return busStopName;
+    }
+
+    public void setBusStopName(String busStopName) {
+        this.busStopName = busStopName;
     }
 }
