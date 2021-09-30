@@ -316,7 +316,7 @@ public class PassTypeActivity extends AppCompatActivity implements AdapterView.O
 
         URL url = null;
         try {
-            url = new URL("http://122.15.66.234:8080/RFIDAPI/stopName");
+            url = new URL("https://rsrtcrfidsystem.co.in/RFIDAPI/stopName");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);
@@ -427,7 +427,7 @@ public class PassTypeActivity extends AppCompatActivity implements AdapterView.O
 
         URL url = null;
         try {
-            url = new URL("http://122.15.66.234:8080/RFIDAPI/stopName");
+            url = new URL("https://rsrtcrfidsystem.co.in/RFIDAPI/stopName");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
             conn.setReadTimeout(10000);
@@ -543,7 +543,7 @@ public class PassTypeActivity extends AppCompatActivity implements AdapterView.O
 
         URL url = null;
         try {
-            url = new URL("http://122.15.66.234:8080/RFIDAPI/busType");
+            url = new URL("https://rsrtcrfidsystem.co.in/RFIDAPI/busType");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type","application/json");  // charset=UTF-8
 //            conn.setReadTimeout(10000);

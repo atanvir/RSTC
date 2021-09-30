@@ -105,7 +105,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return res;
     }
 
@@ -281,7 +280,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
                 CommonUtils.setSpinner(binding.idProofSpinner,list);
                 CommonUtils.setSpinner(binding.passSpinner,depotList);
 
-                binding.setData(new ApplicationModel(generateApplicationId(),"","","",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.PHONE_NO),"",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","",""));
+                binding.setData(new ApplicationModel(""+(Long.parseLong(generateApplicationId())+(PrefrenceHelper.getPrefrenceIntValue(MainActivity.this,"count")+1)),"","","",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.PHONE_NO),"",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","",""));
                 }
                 else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
             }

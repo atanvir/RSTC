@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
@@ -38,10 +40,18 @@ public class ImageUtil {
     }
 
     public static Bitmap getBitmapFromUri(Context context, Uri uri) throws IOException {
-        ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
+        ParcelFileDescriptor parcelFileDescriptor =null;
+        parcelFileDescriptor= context.getContentResolver().openFileDescriptor(uri, "r");
         FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
         parcelFileDescriptor.close();
+
         return image;
+    }
+
+
+    public static Bitmap getBitmapFromUri2(Context context, File uri) throws IOException {
+        Bitmap bitmap = BitmapFactory.decodeFile(uri.getAbsolutePath());
+        return bitmap;
     }
 }

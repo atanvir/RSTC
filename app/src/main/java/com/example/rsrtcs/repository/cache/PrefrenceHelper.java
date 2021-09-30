@@ -22,6 +22,11 @@ public class PrefrenceHelper {
         return  context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(KEY, "");
     }
 
+    public static int getPrefrenceIntValue(Context context, String KEY){
+        return  context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getInt(KEY, 0);
+    }
+
+
 
     public static SharedPreferences.Editor writePrefrencesValue(Context context){
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();

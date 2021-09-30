@@ -1,7 +1,12 @@
 package com.example.rsrtcs;
 
+import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
+import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
+import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -9,6 +14,11 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rsrtcs.model.request.SMSModel;
+import com.example.rsrtcs.repository.cache.PrefrenceHelper;
+import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
+import com.example.rsrtcs.repository.remote.RSRTCConnection;
+import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.ui.activity.main.MainActivity;
 
 import org.apache.http.NameValuePair;
@@ -34,6 +44,10 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class StatusActivity extends AppCompatActivity {
 
     TextView status;
@@ -42,6 +56,8 @@ public class StatusActivity extends AppCompatActivity {
 
     StringBuilder fromStop = new StringBuilder();
     String dataParsed1 = "";
+    private RSRTCInterface smsApiInterface= new RSRTCConnection().createSMSService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +70,47 @@ public class StatusActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
+
+        PrefrenceHelper.writePrefrencesValue(this).putInt("count",PrefrenceHelper.getPrefrenceIntValue(this,"count")+1).apply();
+
         Bundle bundle = this.getIntent().getExtras();
         mStatus = bundle.getString("status").toString().split("\\|");
 
        // status.setText(bundle.getString("status"));
 
         String statusResponce = bundle.getString("status");
+        if(statusResponce.contains("0300")){
+            showLoadingDialog(this);
+            statusSavedInSQL(statusResponce);
+            Toast.makeText(StatusActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+            status.setText("Payment Successful");
 
-        statusSavedInSQL(statusResponce);
-        Toast.makeText(StatusActivity.this, "Registration Completed", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
+            smsApiInterface.sendSMS(new SMSModel("Dear"+ PrefrenceHelper.getPrefrenceStringValue(this, PrefrenceKeyConstant.FULL_NAME) +", your RFID application no "+getSharedPreferences(PrefrenceKeyConstant.PREF_NAME, Context.MODE_PRIVATE).getString("ApplicantId", "appid")+" is successfully registered with RSRTC.You will get confirmation when RSRTC Approve your application.RSRTCR",PrefrenceHelper.getPrefrenceStringValue(this, PrefrenceKeyConstant.PHONE_NO))).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    dismissLoadingDialog();
+                    startActivity(new Intent(StatusActivity.this, MainActivity.class));
 
+                    if(response.isSuccessful()){
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+//                dismissLoadingDialog();
+//                showSnackBar(binding.getRoot(),t.getMessage());
+                }
+            });
+
+        }else{
+            status.setText("Failure");
+            Toast.makeText(StatusActivity.this, "Payment Failure", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(StatusActivity.this, MainActivity.class));
+
+
+        }
 
 
 //        status.setText(statusResponce);
@@ -72,6 +118,7 @@ public class StatusActivity extends AppCompatActivity {
 
 
     }
+
 
     private void statusSavedInSQL(String statusResponce) {
 
@@ -185,5 +232,8 @@ public class StatusActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -9,7 +9,7 @@
     <string name="applicant_id">Applicant ID : <font color='#F80404'>*</font></string>
     <string name="title">Title : <font color='#F80404'>*</font></string>
     <string name="hint_test1">First name : <font color='#F80404'>*</font></string>
-    <string name="hint_test2">Middle name : <font color='#FF0000'>*</font></string>
+    <string name="hint_test2">Middle name </string>
     <string name="hint_test3">Last name : <font color='#FF0000'>*</font></string>
     <string name="gender">Gender : <font color='#FF0000'>*</font></string>
     <string name="date_of_birth">Date Of Birth : <font color='#FF0000'>*</font></string>

@@ -258,7 +258,7 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
         }else if(concessStdPassenger.equals("Student Passenger")){
             ret=false;
             if (binding.etFromStop1.getText().toString().isEmpty() || binding.etTillStop1.getText().toString().isEmpty()) showSnackBar(binding.getRoot(), "Please Enter Stops!");
-            else if (binding.spinnerBusType1.getSelectedItemPosition() == 0 || binding.spinnerBusType1.getSelectedItemPosition() == 2) showSnackBar(binding.getRoot(), "Please Select Express Bus type!");
+            else if (binding.spinnerBusType1.getSelectedItemPosition() == 0) showSnackBar(binding.getRoot(), "Please Select Express Bus type!");
             else startActivity(new Intent(this,SelectRouteActivity.class));
         }
         return ret;

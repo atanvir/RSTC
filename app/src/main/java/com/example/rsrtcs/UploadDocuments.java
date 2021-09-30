@@ -124,6 +124,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
     private int requestCode=1;
     private int requestCode2=2;
     private int requestCode3=3;
+    private String applicationId="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,7 +208,7 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
                 if(response.isSuccessful()){
                     List<String> list = new ArrayList<String>();
                     for(int i=0;i<response.body().size();i++){ list.add(response.body().get(i).getConcessionName()); }
-                    list.add(0,"Select Concession Proof");
+                    list.add(0,"Select Proof ID");
 
                     CommonUtils.setSpinner(idProof,list);
 
@@ -298,8 +299,8 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 //                        intent.setType("image/*");
 //                        intent.setAction(Intent.ACTION_GET_CONTENT);
 //                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 3);
-                        if(checkPermission(requestCode2)){
-                            takePhotoIntent(requestCode2);
+                        if(checkPermission(requestCode3)){
+                            takePhotoIntent(requestCode3);
                         }
 //                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                        startActivityForResult(galleryIntent,  3);
@@ -316,12 +317,14 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
                 if(register.getText().toString().equals("Register")){
 
 
-                if (idProof.getSelectedItemPosition() > 0 || concession.getSelectedItemPosition() > 0 || addrProof.getSelectedItemPosition() > 0) {
+                if (idProof.getSelectedItemPosition() > 0 && concession.getSelectedItemPosition() > 0 && addrProof.getSelectedItemPosition() > 0 && hex1!=null && hex2!=null && hex3!=null) {
                     getAllRegisterData();
                     register.setText("Pay Now");
                     inserDataToSQL(appId, hex1, hex2, hex3);
                     Toast.makeText(UploadDocuments.this, "Documents Uploaded Successfully!", Toast.LENGTH_SHORT).show();
 //                    finish();
+                    startActivity(new Intent(UploadDocuments.this,PaymentActivity.class));
+
                 }
                 else {
                     Toast.makeText(UploadDocuments.this, "Please Select Proof Details!", Toast.LENGTH_SHORT).show();
@@ -342,7 +345,10 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
                 textView1.setText("Choose File");
                 textView2.setText("Choose File");
                 textView3.setText("Choose File");
-
+                register.setText("Register");
+                hex1=null;
+                hex2=null;
+                hex3=null;
             }
         });
 
@@ -679,6 +685,9 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
 
                     fss = object.getString("outMsg");
                     fss2 = object.getString("appId");
+                    applicationId=fss2;
+
+                    Toast.makeText(UploadDocuments.this, ""+applicationId, Toast.LENGTH_SHORT).show();
 
                     Log.e("cardNo = "+ "", ""+fss2);
                 }
@@ -758,14 +767,14 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             if (data != null) {
                 path = FilePath.getPath(this, Uri.parse(data.getDataString()));
             }
-            textView1.setText("Selected");
-            img=Uri.parse(path);
+//            File file = new Compressor(UploadDocuments.this).compressToFile(new File(path));
 
             try{
-                Bitmap bitmap=ImageUtil.getBitmapFromUri(UploadDocuments.this,Uri.parse(path));
-                hex1=ImageUtil.convertBaseString(bitmap);
+                Bitmap bitmap=ImageUtil.getBitmapFromUri2(UploadDocuments.this,new File(path));
                 if(ImageUtil.checkImageSize(bitmap)){
-
+                    hex1=ImageUtil.convertBaseString(bitmap);
+                    textView1.setText("Selected");
+                    img=Uri.parse(path);
                 }else{
                     Toast.makeText(UploadDocuments.this, "Please upload photo upto 2 MB", Toast.LENGTH_SHORT).show();
                 }
@@ -778,13 +787,14 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             if (data != null) {
                 path = FilePath.getPath(this, Uri.parse(data.getDataString()));
             }
-            textView2.setText("Selected");
-            img=Uri.parse(path);
-            try{
-                Bitmap bitmap=ImageUtil.getBitmapFromUri(UploadDocuments.this,Uri.parse(path));
-                hex2=ImageUtil.convertBaseString(bitmap);
-                if(ImageUtil.checkImageSize(bitmap)){
 
+            try{
+                Bitmap bitmap=ImageUtil.getBitmapFromUri2(UploadDocuments.this,new File(path));
+                if(ImageUtil.checkImageSize(bitmap)){
+                    hex2=ImageUtil.convertBaseString(bitmap);
+
+                    textView2.setText("Selected");
+                    img=Uri.parse(path);
                 }else{
                     Toast.makeText(UploadDocuments.this, "Please upload photo upto 2 MB", Toast.LENGTH_SHORT).show();
                 }
@@ -796,14 +806,14 @@ public class UploadDocuments extends AppCompatActivity implements AdapterView.On
             if (data != null) {
                 path = FilePath.getPath(this, Uri.parse(data.getDataString()));
             }
-            textView3.setText("Selected");
-            img=Uri.parse(path);
 
             try{
-                Bitmap bitmap=ImageUtil.getBitmapFromUri(UploadDocuments.this,Uri.parse(path));
-                hex3=ImageUtil.convertBaseString(bitmap);
+                Bitmap bitmap=ImageUtil.getBitmapFromUri2(UploadDocuments.this,new File(path));
                 if(ImageUtil.checkImageSize(bitmap)){
+                    hex3=ImageUtil.convertBaseString(bitmap);
 
+                    textView3.setText("Selected");
+                    img=Uri.parse(path);
                 }else{
                     Toast.makeText(UploadDocuments.this, "Please upload photo upto 2 MB", Toast.LENGTH_SHORT).show();
                 }

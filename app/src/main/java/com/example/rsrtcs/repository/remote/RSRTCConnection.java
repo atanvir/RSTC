@@ -16,7 +16,7 @@ public class RSRTCConnection {
 //    public String BASE_URL="http://115.124.127.204/rsrtcapi/";
 
     public String BASE_URL="https://rsrtcrfidsystem.co.in/rsrtcapi/";
-    public String BASE_URL_RFIDAPI="http://122.15.66.234:8080/RFIDAPI/";
+    public String BASE_URL_RFIDAPI="https://rsrtcrfidsystem.co.in/RFIDAPI/";
     public String SMS_BASE_URL="http://Services.m-techinnovations.com/SMSSendService/SMSSendService.svc/";
 
 

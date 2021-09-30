@@ -27,6 +27,7 @@ public class SampleCallBack implements LibraryPaymentStatusProtocol, Parcelable 
 
 		Intent mIntent = new Intent(context, StatusActivity.class);
 		mIntent.putExtra("status", status);
+
 		context.startActivity(mIntent);
 //		context.finish();
 	}
