@@ -13,8 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RSRTCConnection {
 
-//    public String BASE_URL="http://115.124.127.204/rsrtcapi/";
-
     public String BASE_URL="https://rsrtcrfidsystem.co.in/rsrtcapi/";
     public String BASE_URL_RFIDAPI="https://rsrtcrfidsystem.co.in/RFIDAPI/";
     public String BASE_URL_ROUTE="http://180.92.168.54:8082/RFIDAPI/";

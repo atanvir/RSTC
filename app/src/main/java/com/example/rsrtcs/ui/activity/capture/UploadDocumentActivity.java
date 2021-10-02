@@ -26,8 +26,11 @@ import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 
 import com.example.rsrtcs.databinding.ActivityUploadDocumentsBinding;
+import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.response.RegistrationModel;
+import com.example.rsrtcs.repository.cache.PrefrenceHelper;
+import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
 import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.ui.activity.main.MainActivity;
@@ -47,7 +50,9 @@ import retrofit2.Response;
 
 public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocumentsBinding> implements AdapterView.OnItemSelectedListener, View.OnClickListener, Callback<List<RegistrationModel>> {
 
-    private RSRTCInterface apiInterface= new RSRTCConnection().createServiceRFIDAPI();
+    private RSRTCInterface apiInterface= new RSRTCConnection().createService();
+    private RSRTCInterface smsApiInterface= new RSRTCConnection().createSMSService();
+
     private final int PROOF_ID_CODE=1,CONCESSION_CODE=2,ADDRESS_PROOF_CODE=3;
     private String path;
 
@@ -233,7 +238,22 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
         dismissLoadingDialog();
         if(response.isSuccessful()){
             for(int i=0;i<response.body().size();i++){
-                showDialog(response.body().get(i).getOutMsg(),response.body().get(i).getAppId());
+                String outMsg=response.body().get(i).getOutMsg();
+                String appId=response.body().get(i).getAppId();
+
+                smsApiInterface.sendSMS(new SMSModel("Dear"+ PrefrenceHelper.getPrefrenceStringValue(this, PrefrenceKeyConstant.FULL_NAME) +", your RFID application no "+response.body().get(i).getAppId()+" is successfully registered with RSRTC.You will get confirmation when RSRTC Approve your application.RSRTCR",PrefrenceHelper.getPrefrenceStringValue(this,PrefrenceKeyConstant.PHONE_NO))).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        dismissLoadingDialog();
+                        if(response.isSuccessful()) showDialog(outMsg,appId);
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        dismissLoadingDialog();
+                        showSnackBar(binding.getRoot(),t.getMessage());
+                    }
+                });
                 break;
             }
 
