@@ -35,7 +35,7 @@ public class ImageUtil {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] imageInByte = stream.toByteArray();
-        return imageInByte.length/1024*4<=1024*4;
+        return imageInByte.length/1024*2<=1024*2;
     }
 
     public static Bitmap getBitmapFromUri(Context context, Uri uri) throws IOException {

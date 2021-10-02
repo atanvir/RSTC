@@ -102,11 +102,18 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
         if(resultCode==RESULT_OK){
         if (data != null) path = FilePath.getPath(this, Uri.parse(data.getDataString()));
         Bitmap bitmap= Compressor.getDefault(this).compressToBitmap(new File(path));
+//            Bitmap bitmap= null;
+//            try {
+//                bitmap = ImageUtil.getBitmapFromUri2(UploadDocumentActivity.this,new File(path));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         switch (requestCode) {
             case PROOF_ID_CODE:
                 if (ImageUtil.checkImageSize(bitmap)) {
                     RegisterationDataHelper.getInstance().getApplicationData().setPhotoIDProofData(ImageUtil.convertBaseString(bitmap));
+                    Log.e("base64",RegisterationDataHelper.getInstance().getApplicationData().getPhotoIDProofData());
                     binding.textView1.setText("Selected");
                     Glide.with(UploadDocumentActivity.this).load(bitmap).into(binding.ivOne);
                     binding.ivOne.setVisibility(View.VISIBLE);
@@ -194,7 +201,6 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                     !RegisterationDataHelper.getInstance().getApplicationData().getPhotoIDProofData().equals(""))
                 {
                     showLoadingDialog(this);
-
                     apiInterface.saveRegistration(RegisterationDataHelper.getInstance().getApplicationData()).enqueue(this);
                 }
 

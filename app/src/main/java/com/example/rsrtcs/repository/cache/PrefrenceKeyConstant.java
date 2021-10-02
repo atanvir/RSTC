@@ -26,5 +26,5 @@ public interface PrefrenceKeyConstant extends Serializable {
     String ID_PROOF="idproof";
     String DOB="dob";
 
-    String FEES ="50" ;
+    String FEES ="40" ;
 }
