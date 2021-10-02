@@ -1,4 +1,4 @@
-package com.example.rsrtcs;
+package com.example.rsrtcs.ui.activity.calculation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.rsrtcs.PassTypeActivity;
+import com.example.rsrtcs.R;
+import com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity;
+import com.example.rsrtcs.model.response.RouteModel;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -134,9 +139,9 @@ public class FareCalculation extends AppCompatActivity {
 
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
-        pojoClass root = (pojoClass) bundle.getSerializable("rootData");
-        rootNo = root.getRouteno();
-        Log.e("root : ", root.getRouteno());
+        RouteModel root = (RouteModel) bundle.getSerializable("rootData");
+        rootNo = root.getRouteNo();
+        Log.e("root : ", root.getRouteNo());
 
                     Calendar calendar = Calendar.getInstance();
                     Date date = calendar.getTime();
@@ -222,7 +227,7 @@ public class FareCalculation extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FareCalculation.this,UploadDocuments.class);
+                Intent intent = new Intent(FareCalculation.this, UploadDocumentActivity.class);
                 startActivity(intent);
             }
         });
@@ -230,7 +235,7 @@ public class FareCalculation extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FareCalculation.this,PassTypeActivity.class);
+                Intent intent = new Intent(FareCalculation.this, PassTypeActivity.class);
                 startActivity(intent);
             }
         });

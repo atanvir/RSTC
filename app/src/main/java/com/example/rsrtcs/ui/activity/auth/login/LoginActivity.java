@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.example.rsrtcs.R;
@@ -117,6 +118,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
             }
 
         }
+        else Toast.makeText(LoginActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override

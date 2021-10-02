@@ -100,6 +100,16 @@
 
     <string-array name="id_proof">
         <item>Select Proof ID</item>
+<!--        <item>Aadhar Card</item>-->
+<!--        <item>Driving License</item>-->
+<!--        <item>Pan Card</item>-->
+<!--        <item>Pass Port</item>-->
+<!--        <item>Rashan Card</item>-->
+<!--        <item>Student Card</item>-->
+<!--        <item>Voter Id</item>-->
+<!--        <item>Govt Id Card</item>-->
+<!--        <item>Other</item>-->
+
         <item>Aadhar Card</item>
         <item>Driving License</item>
         <item>Pan Card</item>

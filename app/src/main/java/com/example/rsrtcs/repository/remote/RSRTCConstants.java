@@ -14,5 +14,7 @@ public interface RSRTCConstants extends Serializable {
     String SEND_SMS="SendSMSServiceNew";
 
     String STOP_NAME="stopName";
+    String ROUTE_DETAIL="getRouteDetail";
+    String SAVE_REGISTRATION="SaveRegistration";
     String GET_CONCESSION_MASTER="GetConcessionMaster";
 }

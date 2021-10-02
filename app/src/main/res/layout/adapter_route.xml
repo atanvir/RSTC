@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools">
 
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.rsrtcs.model.response.RouteModel" />
+
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -81,7 +93,7 @@
                     android:id="@+id/route_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Route No"
+                    android:hint="@{data.routeName}"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/black"
@@ -95,7 +107,7 @@
                     android:id="@+id/km"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="KM"
+                    android:hint="@{data.km}"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/black"
@@ -108,7 +120,7 @@
                     android:id="@+id/depot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Depot"
+                    android:hint="@{data.depotCd}"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/black"
@@ -126,3 +138,4 @@
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
+</layout>

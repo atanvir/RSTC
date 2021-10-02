@@ -25,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rsrtcs.ui.activity.route.SelectRouteActivity;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -234,7 +236,7 @@ public class PassTypeActivity extends AppCompatActivity implements AdapterView.O
 //                editor.putString("mm3", String.valueOf(mm3));
                 editor.commit();
 
-                Intent intent = new Intent(PassTypeActivity.this,SelectRouteActivity.class);
+                Intent intent = new Intent(PassTypeActivity.this, SelectRouteActivity.class);
                 startActivity(intent);
                 finish();
             }

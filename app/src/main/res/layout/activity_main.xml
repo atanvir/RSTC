@@ -111,7 +111,7 @@
                         android:focusable="false"
                         android:clickable="false"
                         android:gravity="center"
-                        android:text="@={data.applicantId}"
+                        android:text="@={data.applicantID}"
                         android:hint="0"
                         android:inputType="none"
                         android:padding="5dp"
@@ -178,7 +178,7 @@
                         android:maxLength="50"
                         android:maxLines="1"
                         android:scrollHorizontally="true"
-                        android:text="@={data.name}"
+                        android:text="@={data.first_name}"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -271,9 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/gradient_spinner"
-                        android:padding="5dp"
-
-                        bind:selectedValue="@={data.gen}" />
+                        android:padding="5dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -382,7 +380,7 @@
                         android:hint="@string/mobile_num"
                         android:inputType="number"
                         android:maxLength="10"
-                        android:text="@={data.mobile}"
+                        android:text="@={data.mobileNo}"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -404,7 +402,7 @@
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
 
-                        android:text="@={data.email}"
+                        android:text="@={data.emailID}"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -488,8 +486,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/gradient_spinner"
-                        android:padding="5dp"
-                        bind:selectedValue="@={data.id_proof}" />
+                        android:padding="5dp" />
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -512,7 +509,7 @@
                         android:maxLength="30"
                         android:maxLines="5"
                         android:scrollbars="vertical"
-                        android:text="@={data.proofDetail}"
+                        android:text="@={data.proofDetails}"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -573,7 +570,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/gradient_spinner"
                             android:padding="5dp"
-                            bind:selectedValue="@={data.idproof}" />
+                            />
                     </LinearLayout>
 
 

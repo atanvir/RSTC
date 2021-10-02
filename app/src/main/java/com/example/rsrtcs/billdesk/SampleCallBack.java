@@ -1,11 +1,10 @@
-package com.example.rsrtcs;
+package com.example.rsrtcs.billdesk;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.billdesk.sdk.LibraryPaymentStatusProtocol;
 

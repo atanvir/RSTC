@@ -15,7 +15,7 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.example.rsrtcs.ConnectionHelper;
+import com.example.rsrtcs.repository.local.ConnectionHelper;
 import com.example.rsrtcs.ui.activity.capture.ImageCaptureActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
@@ -31,6 +31,7 @@ import com.example.rsrtcs.ui.activity.drawer.card.RechargeCardActivity;
 import com.example.rsrtcs.utils.CommonUtils;
 import  com.example.rsrtcs.ui.activity.drawer.report.ReportActivity;
 import com.example.rsrtcs.utils.MultiTextWatcher;
+import com.example.rsrtcs.utils.RegisterationDataHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -40,6 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,6 +51,10 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, MultiTextWatcher.TextWatcherWithInstance {
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
     private Calendar calendar = Calendar.getInstance();
+
+
+    private List<SpinnerDataModel> proofList= new ArrayList();
+    private List<SpinnerDataModel> depoidList= new ArrayList();
 
 
     @Override
@@ -87,27 +94,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
     }
 
 
-    private String generateApplicationId() {
-        String res="";
-        try {
-            ConnectionHelper helper = new ConnectionHelper();
-            Connection connect = helper.connectionClass();
-
-            if (connect != null){
-                String query = "Select isnull(max(cast(ApplicantID as integer))+1,1) from MMemberNewRegistration ";
-                Statement statement = connect.createStatement();
-                ResultSet rs = statement.executeQuery(query);
-                while (rs.next()){
-                  res = (rs.getString(""));
-                }
-                connect.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
 
 
     private boolean checkValidation() {
@@ -117,7 +103,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             showSnackBar(binding.getRoot(),"Please select title");
             binding.titleSpinner.requestFocus();
         }
-        else if(binding.getData().getName().trim().equalsIgnoreCase("")){
+        else if(binding.getData().getFirst_name().trim().equalsIgnoreCase("")){
             ret=false;
             binding.tilFirstName.setErrorEnabled(true);
             binding.tilFirstName.setError("Please enter first name");
@@ -135,7 +121,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             binding.tilLastName.setError("Please enter last name");
             binding.tilLastName.requestFocus();
         }
-        else if(binding.getData().getGen().equalsIgnoreCase("") || binding.getData().getGen().equalsIgnoreCase("Gender")){
+        else if(binding.getData().getGender().equalsIgnoreCase("") || binding.getData().getGender().equalsIgnoreCase("Gender")){
             ret=false;
             showSnackBar(binding.getRoot(),"Please select gender");
             binding.genderSpinner.requestFocus();
@@ -145,25 +131,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             binding.tilDOB.setError("Please select DOB");
             binding.tilDOB.requestFocus();
         }
-        else if(binding.getData().getMobile().equalsIgnoreCase("")){
+        else if(binding.getData().getMobileNo().equalsIgnoreCase("")){
             ret=false;
             binding.tilMobileNo.setErrorEnabled(true);
             binding.tilMobileNo.setError("Please enter mobile number");
             binding.tilMobileNo.requestFocus();
         }
-        else if(binding.getData().getMobile().length()!=10){
+        else if(binding.getData().getMobileNo().length()!=10){
             ret=false;
             binding.tilMobileNo.setErrorEnabled(true);
             binding.tilMobileNo.setError("Please enter valid mobile number");
             binding.tilMobileNo.requestFocus();
-        }else if(binding.getData().getEmail().equalsIgnoreCase("")){
+        }else if(binding.getData().getEmailID().equalsIgnoreCase("")){
             ret=false;
             binding.tilEmailId.setErrorEnabled(true);
             binding.tilEmailId.setError("Please enter email id");
             binding.tilEmailId.requestFocus();
         }
 
-        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.getData().getEmail()).matches()){
+        else if(!Patterns.EMAIL_ADDRESS.matcher(binding.getData().getEmailID()).matches()){
             ret=false;
             binding.tilEmailId.setErrorEnabled(true);
             binding.tilEmailId.setError("Please enter valid email id");
@@ -188,18 +174,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             binding.tilAddress.setError("Please enter address");
             binding.tilAddress.requestFocus();
         }
-        else if(binding.getData().getIdproof().equalsIgnoreCase("") || binding.getData().getIdproof().equalsIgnoreCase("Select Proof")){
+        else if(binding.getData().getProofID().equalsIgnoreCase("") || binding.getData().getProofID().equalsIgnoreCase("Select Proof")){
             ret=false;
             showSnackBar(binding.getRoot(),"Please select proof ");
         }
-        else if(binding.getData().getProofDetail().equalsIgnoreCase("")){
+        else if(binding.getData().getProofDetails().equalsIgnoreCase("")){
             ret=false;
             binding.tilProofDetail.setErrorEnabled(true);
             binding.tilProofDetail.setError("Please enter proof detail");
             binding.tilProofDetail.requestFocus();
         }
 
-        else if(binding.getData().getId_proof().equalsIgnoreCase("") || binding.getData().getId_proof().equalsIgnoreCase("Select Depot")){
+        else if(binding.getData().getDepoid().equalsIgnoreCase("") || binding.getData().getDepoid().equalsIgnoreCase("Select Depot")){
             ret=false;
             showSnackBar(binding.getRoot(),"Please select depot");
         }
@@ -216,10 +202,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
-         case R.id.title_spinner: binding.getData().setTitle(parent.getItemAtPosition(position).toString()); break;
-         case R.id.gender_spinner: binding.getData().setGen(genderApiKey(parent.getItemAtPosition(position).toString()));  break;
-         case R.id.id_proof_spinner: binding.getData().setIdproof(/*parent.getItemAtPosition(position).toString()*/"1"); break;
-         case R.id.pass_spinner: binding.getData().setId_proof(parent.getItemAtPosition(position).toString()); break;
+         case R.id.title_spinner: if(position>0) binding.getData().setTitle(parent.getItemAtPosition(position).toString()); break;
+         case R.id.gender_spinner: binding.getData().setGender(genderApiKey(parent.getItemAtPosition(position).toString()));  break;
+         case R.id.id_proof_spinner: if(position>0) binding.getData().setProofID(proofList.get(position-1).getProofId()); break;
+         case R.id.pass_spinner: if(position>0) binding.getData().setDepoid(depoidList.get(position-1).getDepotNum()); break;
          }
     }
     @Override
@@ -230,9 +216,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
 
     private String genderApiKey(String gender) {
         String key="";
-        switch (gender){
-            case "Male" : key="M"; break;
-            case "Female" : key="F"; break;
+        switch (gender.toLowerCase(Locale.ROOT)){
+            case "male" : key="M"; break;
+            case "female" : key="F"; break;
+            case "gender" : key="Gender"; break;
             default: key="O"; break;
         }
         return key;
@@ -245,6 +232,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             @Override
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
                 if(response.isSuccessful()){
+                    depoidList=response.body();
                     List<String> list = new ArrayList<String>();
                     for(int i=0;i<response.body().size();i++){ list.add(response.body().get(i).getDepotName()); }
                     list.add(0,"Select Depot");
@@ -269,8 +257,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
                 dismissLoadingDialog();
                 if(response.isSuccessful()){
+                proofList=response.body();
                 List<String> list = new ArrayList<String>();
-                for(int i=0;i<response.body().size();i++){ list.add(response.body().get(i).getProofName()); }
+
+                for(int i=0;i<response.body().size();i++){
+                    list.add(response.body().get(i).getProofName());
+                }
                 list.add(0,"Select Proof");
 
 
@@ -279,8 +271,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
                 CommonUtils.setSpinner(binding.genderSpinner, R.array.gender1);
                 CommonUtils.setSpinner(binding.idProofSpinner,list);
                 CommonUtils.setSpinner(binding.passSpinner,depotList);
-
-                binding.setData(new ApplicationModel(""+(Long.parseLong(generateApplicationId())+(PrefrenceHelper.getPrefrenceIntValue(MainActivity.this,"count")+1)),"","","",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.PHONE_NO),"",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","",""));
+                binding.setData(new ApplicationModel("","1", UUID.randomUUID().toString().replaceAll("-", "").toUpperCase(),"","","","","","",PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.PHONE_NO),PrefrenceHelper.getPrefrenceStringValue(MainActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","","","","","","","","","","","","","","","","","","","","","","","0","0","0","","","0","0","0","0","0","0","","","","","I","","","000000000000"));
                 }
                 else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
             }
@@ -303,8 +294,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements A
             case R.id.tieDOB: datePicker(); break;
             case R.id.next:
             if(checkValidation()){
+               RegisterationDataHelper.getInstance().setApplicationData(binding.getData());
                startNewActivity(ImageCaptureActivity.class);
-               PrefrenceHelper.saveStepOneData(this,binding.getData());
             }
             break;
             case R.id.clear: clearText(); break;

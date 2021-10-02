@@ -7,6 +7,8 @@ import static com.example.rsrtcs.repository.remote.RSRTCConstants.FORGOT;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.GET_CONCESSION_MASTER;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.ONLINE_RECHARGE;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.PROOF;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.ROUTE_DETAIL;
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.SAVE_REGISTRATION;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.SEND_SMS;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.LOGIN;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.SIGNUP;
@@ -14,7 +16,9 @@ import static com.example.rsrtcs.repository.remote.RSRTCConstants.STOP_NAME;
 
 import android.widget.Spinner;
 
+import com.example.rsrtcs.model.request.ApplicationModel;
 import com.example.rsrtcs.model.request.ConcessionCodeModel;
+import com.example.rsrtcs.model.request.RouteModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.request.CardDataModel;
 import com.example.rsrtcs.model.request.ForgotModel;
@@ -25,6 +29,7 @@ import com.example.rsrtcs.model.request.LoginModel;
 import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.model.request.SignupModel;
 import com.example.rsrtcs.model.response.CardModel;
+import com.example.rsrtcs.model.response.RegistrationModel;
 
 import java.util.List;
 
@@ -72,4 +77,11 @@ public interface RSRTCInterface {
 
     @POST(GET_CONCESSION_MASTER)
     Call<List<SpinnerDataModel>> getConcessionMaster(@Body ConcessionCodeModel model);
+
+
+    @POST(ROUTE_DETAIL)
+    Call<List<com.example.rsrtcs.model.response.RouteModel>> getRouteDetailApi(@Body RouteModel model);
+
+    @POST(SAVE_REGISTRATION)
+    Call<List<RegistrationModel>> saveRegistration(@Body ApplicationModel model);
 }

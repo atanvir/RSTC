@@ -4,7 +4,7 @@ package com.example.rsrtcs.ui.activity.route;
 import android.content.Intent;
 import android.view.View;
 
-import com.example.rsrtcs.ui.activity.concession.ConcessionDetail;
+import com.example.rsrtcs.ui.activity.concession.ConcessionDetailActivity;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityPassRouteSelectionBinding;
 
@@ -27,7 +27,7 @@ public class PassRouteSelectionActivity extends BaseActivity<ActivityPassRouteSe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(PassRouteSelectionActivity.this, ConcessionDetail.class);
+        Intent intent = new Intent(PassRouteSelectionActivity.this, ConcessionDetailActivity.class);
         startActivity(intent);
         finish();
     }

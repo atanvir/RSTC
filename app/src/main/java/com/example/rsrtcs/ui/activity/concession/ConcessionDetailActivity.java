@@ -4,53 +4,25 @@ import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.rsrtcs.ConnectionHelper;
-import com.example.rsrtcs.FixPassFareCalculation;
+import com.example.rsrtcs.repository.local.ConnectionHelper;
+import com.example.rsrtcs.ui.activity.calculation.FixPassFareCalculation;
 import com.example.rsrtcs.R;
-import com.example.rsrtcs.SelectRouteActivity;
+import com.example.rsrtcs.ui.activity.route.SelectRouteActivity;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityConcessionDetailBinding;
 import com.example.rsrtcs.model.request.ConcessionCodeModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.request.StopModel;
-import com.example.rsrtcs.repository.cache.PrefrenceHelper;
 import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
 import com.example.rsrtcs.utils.CommonUtils;
+import com.example.rsrtcs.utils.RegisterationDataHelper;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -58,18 +30,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBinding> implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class ConcessionDetailActivity extends BaseActivity<ActivityConcessionDetailBinding> implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private RSRTCInterface apiInterface= new RSRTCConnection().createServiceRFIDAPI();
+    private RSRTCInterface apiInterface= new RSRTCConnection().createServiceRoute();
     private RSRTCInterface apiInterfaceRSTC= new RSRTCConnection().createService();
-    private String concessStdPassenger,fromStop,tillStop,busType;
+    private String concessStdPassenger;
+    private List<SpinnerDataModel> concessionCodeList= new ArrayList<>();
 
     @Override
     protected ActivityConcessionDetailBinding getActivityBinding() {
@@ -78,6 +50,7 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
 
     @Override
     protected void init() {
+        RegisterationDataHelper.getInstance().getApplicationData().setBusType("EXP");
         CommonUtils.setSpinner(binding.pasPeriod,R.array.pass_period);
         CommonUtils.setSpinner(binding.spinnerBusType1,R.array.bus_type);
         CommonUtils.setSpinner(binding.conTypeSpinner,getConsessionType());
@@ -101,12 +74,26 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
                 dismissLoadingDialog();
                 if(response.isSuccessful()){
+//                    concessionCodeList=response.body();
                     for(SpinnerDataModel model: response.body()){
-                        if(type.equalsIgnoreCase("from")) fromStop=model.getBusStopName();
-                        else tillStop = model.getBusStopName();
+                        if(type.equalsIgnoreCase("from")) {
+                          if(stop.toLowerCase(Locale.ROOT).equals(model.getBusStopCode().toLowerCase(Locale.ROOT)))  {
+                              RegisterationDataHelper.getInstance().getApplicationData().setFromStop(model.getBusStopCode());
+                              RegisterationDataHelper.getInstance().getApplicationData().setFromStopVal(model.getBusStopName());
+                              break;
+                          }
+                        }
+                        else{
+                            if(stop.toLowerCase(Locale.ROOT).equals(model.getBusStopCode().toLowerCase(Locale.ROOT)))  {
+                                RegisterationDataHelper.getInstance().getApplicationData().setTillStop(model.getBusStopCode());
+                                RegisterationDataHelper.getInstance().getApplicationData().setTillStopVal(model.getBusStopName());
+                                break;
+                            }
+
+                        }
                     }
-                    if(type.equalsIgnoreCase("from")) binding.etFromStop1.setText(fromStop);
-                    else binding.etTillStop1.setText(tillStop);
+                    if(type.equalsIgnoreCase("from")) binding.etFromStop1.setText(RegisterationDataHelper.getInstance().getApplicationData().getFromStopVal());
+                    else binding.etTillStop1.setText(RegisterationDataHelper.getInstance().getApplicationData().getTillStopVal());
                 }else{
                     showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
                 }
@@ -149,8 +136,10 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
                 dismissLoadingDialog();
                 if(response.isSuccessful()){
+                    RegisterationDataHelper.getInstance().getApplicationData().setConcessionType(ConcessionType);
+                    concessionCodeList=response.body();
                     List<String> list=new ArrayList<>();
-                    list.add("Please select");
+                    list.add(0,"Please select");
                     for(SpinnerDataModel model: response.body()){
                         list.add(model.getConcessionName());
                     }
@@ -172,16 +161,23 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
             case R.id.con_type_spinner : checkConcessionType(parent.getItemAtPosition(position).toString()); break;
-            case R.id.con_code_spinner1 : checkConcessionCode(parent.getItemAtPosition(position).toString()); break;
+
+            case R.id.con_code_spinner1 :
+            if(position>0) RegisterationDataHelper.getInstance().getApplicationData().setConcessionCode(concessionCodeList.get(position - 1).getConcessionCode());
+            checkConcessionCode(parent.getItemAtPosition(position).toString());
+            break;
 
             case R.id.pas_period :
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.YEAR, position);
             binding.datePick.setText(format.format(cal.getTime()));
+            RegisterationDataHelper.getInstance().getApplicationData().setPassPeriod(""+position);
+            RegisterationDataHelper.getInstance().getApplicationData().setPassValidity(""+position);
+            RegisterationDataHelper.getInstance().getApplicationData().setExpiryDate(binding.datePick.getText().toString());
             break;
 
-            case R.id.spinner_bus_type1: busType=parent.getItemAtPosition(position).toString(); break;
+            case R.id.spinner_bus_type1: Log.e("a","a"); break;
         }
 
     }
@@ -190,7 +186,7 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
 
     private void checkConcessionType(String type) {
         switch (type){
-            case "CONCESSION": concessionCodeApi("1"); break;
+            case "CONCESSION":  concessionCodeApi("1"); break;
             case "PASS": binding.llSelectStop.setVisibility(View.GONE); concessionCodeApi("2"); break;
         }
     }
@@ -221,12 +217,6 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        binding.etFromStop1.getText().clear();
-        binding.etTillStop1.getText().clear();
-    }
 
     @Override
     public void onClick(View v) {
@@ -243,7 +233,6 @@ public class ConcessionDetail extends BaseActivity<ActivityConcessionDetailBindi
             break;
 
             case R.id.btn_next:
-            PrefrenceHelper.saveConcessionDetail(this,"",binding.datePick.getText().toString(),fromStop,tillStop,busType);
             if(checkValidation()) startActivity(new Intent(this,FixPassFareCalculation.class));
             break;
 

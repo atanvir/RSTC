@@ -7,6 +7,7 @@
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_api.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_concession_detail.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_drawer.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_fare_calculation.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_fix_pass_fare_calculation.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_forgot_password.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_image_capture.xml" value="0.2" />
@@ -16,11 +17,14 @@
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_payment.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_recharge_card.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_report.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_select_route.xml" value="0.2" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_signup.xml" value="0.2" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_status.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_upload_documents.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/activity_upload_documents.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/adapter_report.xml" value="0.1287037037037037" />
+        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/adapter_route.xml" value="0.2" />
+        <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/layout/card.xml" value="0.2" />
         <entry key="..\:/Users/ADMIN/Desktop/RSRTC/RSRTC/app/src/main/res/xml/provider_paths.xml" value="0.29322916666666665" />
       </map>
     </option>

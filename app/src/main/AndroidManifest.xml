@@ -32,20 +32,18 @@
         <activity
             android:name="com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity"
             android:exported="true" />
-        <activity android:name="com.example.rsrtcs.PaymentActivity" />
-        <activity android:name="com.example.rsrtcs.StatusActivity" />
-        <activity android:name="com.example.rsrtcs.FixPassFareCalculation" />
-        <activity android:name="com.example.rsrtcs.ui.activity.concession.ConcessionDetail" />
+        <activity android:name="com.example.rsrtcs.billdesk.PaymentActivity" />
+        <activity android:name="com.example.rsrtcs.billdesk.StatusActivity" />
+        <activity android:name="com.example.rsrtcs.ui.activity.calculation.FixPassFareCalculation" />
+        <activity android:name="com.example.rsrtcs.ui.activity.concession.ConcessionDetailActivity" />
         <activity android:name="com.example.rsrtcs.ui.activity.auth.login.LoginActivity" />
         <activity android:name="com.example.rsrtcs.ui.activity.main.MainActivity" />
-        <activity android:name="com.example.rsrtcs.UploadDocuments" />
+        <activity android:name="com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity" />
         <activity android:name="com.example.rsrtcs.PassTypeActivity" />
-        <activity android:name="com.example.rsrtcs.CustomerFeedback" />
-        <activity android:name="com.example.rsrtcs.SelectRouteActivity" />
+        <activity android:name="com.example.rsrtcs.ui.activity.route.SelectRouteActivity" />
         <activity android:name="com.example.rsrtcs.ui.activity.capture.ImageCaptureActivity" />
-        <activity android:name="com.example.rsrtcs.FareCalculation" />
+        <activity android:name="com.example.rsrtcs.ui.activity.calculation.FareCalculation" />
         <activity android:name="com.example.rsrtcs.ui.activity.route.PassRouteSelectionActivity" />
-        <activity android:name="com.example.rsrtcs.ApiActivity" />
         <activity android:name="com.example.rsrtcs.ui.activity.auth.signup.SignupActivity" />
         <activity
             android:name="com.example.rsrtcs.ui.activity.splash.SplashActivity"

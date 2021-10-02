@@ -28,7 +28,6 @@ public class ImageUtil {
     {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
     }
 
@@ -36,7 +35,7 @@ public class ImageUtil {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] imageInByte = stream.toByteArray();
-        return imageInByte.length/1024*2<=1024*2;
+        return imageInByte.length/1024*4<=1024*4;
     }
 
     public static Bitmap getBitmapFromUri(Context context, Uri uri) throws IOException {

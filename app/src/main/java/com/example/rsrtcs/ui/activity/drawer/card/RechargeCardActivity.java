@@ -1,6 +1,5 @@
 package com.example.rsrtcs.ui.activity.drawer.card;
 
-import static com.example.rsrtcs.FixPassFareCalculation.MyPREFERENCES;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
@@ -11,12 +10,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.example.rsrtcs.PaymentActivity;
+import com.example.rsrtcs.billdesk.PaymentActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityRechargeCardBinding;
 import com.example.rsrtcs.model.request.CardDataModel;
 import com.example.rsrtcs.model.response.CardModel;
+import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
 import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
 
@@ -83,7 +83,7 @@ public class RechargeCardActivity extends BaseActivity<ActivityRechargeCardBindi
         if(response.isSuccessful()){
             for(int i=0;i<response.body().size();i++){
                 if(binding.getData().getCardNo().equalsIgnoreCase(response.body().get(i).getCardNo())){
-                    getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE).edit().putString("cardNo", binding.tieEmail.getText().toString()).apply();
+                    getSharedPreferences(PrefrenceKeyConstant.PREF_NAME, Context.MODE_PRIVATE).edit().putString("cardNo", binding.tieEmail.getText().toString()).apply();
                     dismissLoadingDialog();
                     startActivity(new Intent(RechargeCardActivity.this,PaymentActivity.class).putExtra("amount", response.body().get(i).getAmount()));
                 }

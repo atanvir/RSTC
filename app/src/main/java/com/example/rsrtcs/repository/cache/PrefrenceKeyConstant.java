@@ -5,6 +5,7 @@ import java.io.Serializable;
 public interface PrefrenceKeyConstant extends Serializable {
     String PREF_NAME="MyPrefs";
     String FULL_NAME="full_name";
+    String BUS_TYPE="EXP";
 
     // Registration
     String Application_id="ApplicantId";
@@ -25,4 +26,5 @@ public interface PrefrenceKeyConstant extends Serializable {
     String ID_PROOF="idproof";
     String DOB="dob";
 
+    String FEES ="50" ;
 }

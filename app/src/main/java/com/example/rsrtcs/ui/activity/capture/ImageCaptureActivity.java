@@ -13,21 +13,25 @@ import android.graphics.Bitmap;
 
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.rsrtcs.ui.activity.route.PassRouteSelectionActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityImageCaptureBinding;
 import com.example.rsrtcs.repository.cache.PrefrenceHelper;
 import com.example.rsrtcs.utils.ImageUtil;
+import com.example.rsrtcs.utils.RegisterationDataHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBinding> implements View.OnClickListener {
     public static final int CAPTURE_IMAGE = 100,PICK_IMAGE=221;
-    private String image="";
+    private Bitmap bitmapImage;
 
     @Override
     protected ActivityImageCaptureBinding getActivityBinding() {
@@ -51,14 +55,16 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
             case CAPTURE_IMAGE: loadImage((Bitmap) data.getExtras().get("data")); break;
-            case PICK_IMAGE: try { loadImage(ImageUtil.getBitmapFromUri(this,data.getData())); } catch (IOException e) { e.printStackTrace(); } break;
+            case PICK_IMAGE: try {
+                loadImage(ImageUtil.getBitmapFromUri(this,data.getData())); } catch (IOException e) { e.printStackTrace(); } break;
         }
     }
 
     private void loadImage(Bitmap bitmap) {
+        bitmapImage=bitmap;
         if(checkImageSize(bitmap)){
-            binding.image.setImageBitmap(bitmap);
-            image=ImageUtil.convertBaseString(bitmap);
+            Glide.with(this).load(bitmap).into(binding.image);
+            //binding.image.setImageBitmap(bitmap);
         }else{ Toast.makeText(ImageCaptureActivity.this, "Please upload photo upto of 2 MB", Toast.LENGTH_SHORT).show(); }
 
     }
@@ -67,10 +73,15 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
     @Override
     protected void onResume() {
         super.onResume();
-        image=PrefrenceHelper.getPrefrenceStringValue(this,"hex1");
+        if(RegisterationDataHelper.getInstance().getApplicationData()!=null){
+        String image=RegisterationDataHelper.getInstance().getApplicationData().getPhoto();
+        if(image!=null){
         if(!image.equals("")) {
-            binding.image.setImageBitmap(ImageUtil.convertBitmap(image));
-        }
+            bitmapImage=ImageUtil.convertBitmap(image);
+            binding.image.setImageBitmap(bitmapImage);
+        }else{
+            binding.image.setImageBitmap(null);
+        }}}
     }
 
     @Override
@@ -78,12 +89,12 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
         switch (v.getId()){
 
             case R.id.capture:
-            binding.image.setImageDrawable(null);
+            binding.image.setImageBitmap(null);
             if(checkPermission(CAPTURE_IMAGE)) startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),CAPTURE_IMAGE);
             break;
 
             case R.id.browse:
-            binding.image.setImageDrawable(null);
+            binding.image.setImageBitmap(null);
             if(checkPermission(PICK_IMAGE)){
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -91,11 +102,12 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
             startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE);}
             break;
 
-            case R.id.clear:  binding.image.setImageDrawable(null); break;
+            case R.id.clear:  binding.image.setImageBitmap(null); break;
 
             case R.id.next:
-            if (image!=null){
-                PrefrenceHelper.writePrefrencesValue(this).putString("hex1",image).apply();
+            if (bitmapImage!=null){
+                RegisterationDataHelper.getInstance().getApplicationData().setPhoto(ImageUtil.convertBaseString(bitmapImage));
+                RegisterationDataHelper.getInstance().getApplicationData().setHexPhoto(RegisterationDataHelper.getInstance().getApplicationData().getPhoto());
                 startActivity(new Intent(ImageCaptureActivity.this, PassRouteSelectionActivity.class));
             }
             else Toast.makeText(ImageCaptureActivity.this, "Please Select The Image!", Toast.LENGTH_SHORT).show();

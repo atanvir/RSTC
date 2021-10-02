@@ -1,8 +1,7 @@
-package com.example.rsrtcs;
+package com.example.rsrtcs.billdesk;
 
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
-import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rsrtcs.R;
 import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.repository.cache.PrefrenceHelper;
 import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
