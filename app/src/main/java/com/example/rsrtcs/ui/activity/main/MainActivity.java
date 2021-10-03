@@ -49,6 +49,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, MultiTextWatcher.TextWatcherWithInstance {
+
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
     private Calendar calendar = Calendar.getInstance();
 

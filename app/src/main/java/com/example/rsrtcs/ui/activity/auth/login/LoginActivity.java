@@ -146,6 +146,5 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
     @Override
     public void afterTextChanged(EditText editText, Editable editable) {
-
     }
 }

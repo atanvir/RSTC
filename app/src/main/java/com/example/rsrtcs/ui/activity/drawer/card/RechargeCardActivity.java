@@ -10,7 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.example.rsrtcs.billdesk.PaymentActivity;
+import com.example.rsrtcs.ui.activity.billdesk.PaymentActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityRechargeCardBinding;

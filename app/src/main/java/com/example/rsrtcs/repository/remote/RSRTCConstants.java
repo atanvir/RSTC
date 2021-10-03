@@ -17,4 +17,8 @@ public interface RSRTCConstants extends Serializable {
     String ROUTE_DETAIL="getRouteDetail";
     String SAVE_REGISTRATION="SaveRegistration";
     String GET_CONCESSION_MASTER="GetConcessionMaster";
+    String BILL_DESK_REQUEST="BillDeskRequest";
+    String BILL_DESK_RESPONSE="BillDeskResponse";
+    String DOCUMENT_TYPE="GetDocumentType";
+    String DOCUMENT_CODE="GetConcessionDoc";
 }

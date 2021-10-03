@@ -17,6 +17,26 @@ public class SpinnerDataModel {
     private String busStopName;
     private String busStopCode;
 
+    // Document Upload
+    private String srNo;
+    private String documentName;
+
+    public String getSrNo() {
+        return srNo;
+    }
+
+    public void setSrNo(String srNo) {
+        this.srNo = srNo;
+    }
+
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
+
     public String getBusStopCode() {
         return busStopCode;
     }

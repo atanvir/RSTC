@@ -7,6 +7,8 @@ import android.view.WindowManager;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivitySplashBinding;
 import com.example.rsrtcs.ui.activity.auth.login.LoginActivity;
+import com.example.rsrtcs.ui.activity.billdesk.PaymentActivity;
+import com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity;
 import com.example.rsrtcs.ui.activity.main.MainActivity;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {

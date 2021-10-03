@@ -25,28 +25,32 @@
         tools:replace="android:theme">
         <activity
             android:name=".ui.activity.drawer.report.ReportActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.example.rsrtcs.ui.activity.drawer.card.RechargeCardActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
-        <activity android:name="com.example.rsrtcs.billdesk.PaymentActivity" />
-        <activity android:name="com.example.rsrtcs.billdesk.StatusActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.calculation.FixPassFareCalculation" />
-        <activity android:name="com.example.rsrtcs.ui.activity.concession.ConcessionDetailActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.auth.login.LoginActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.main.MainActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity" />
-        <activity android:name="com.example.rsrtcs.PassTypeActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.route.SelectRouteActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.capture.ImageCaptureActivity" />
-        <activity android:name="com.example.rsrtcs.FareCalculation" />
-        <activity android:name="com.example.rsrtcs.ui.activity.route.PassRouteSelectionActivity" />
-        <activity android:name="com.example.rsrtcs.ui.activity.auth.signup.SignupActivity" />
+        <activity android:name=".ui.activity.billdesk.PaymentActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.billdesk.PaymentStatusActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.calculation.FixPassFareCalculation" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.concession.ConcessionDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.example.rsrtcs.ui.activity.auth.login.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.rsrtcs.ui.activity.main.MainActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.rsrtcs.PassTypeActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.route.SelectRouteActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.capture.ImageCaptureActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.FareCalculation" android:screenOrientation="portrait"/>
+        <activity android:name="com.example.rsrtcs.ui.activity.route.PassRouteSelectionActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.example.rsrtcs.ui.activity.auth.signup.SignupActivity" android:screenOrientation="portrait" />
         <activity
             android:name="com.example.rsrtcs.ui.activity.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

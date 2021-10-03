@@ -1,6 +1,7 @@
 package com.example.rsrtcs.repository.cache;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 public interface PrefrenceKeyConstant extends Serializable {
     String PREF_NAME="MyPrefs";
@@ -27,4 +28,7 @@ public interface PrefrenceKeyConstant extends Serializable {
     String DOB="dob";
 
     String FEES ="40" ;
+    String REQUEST_TYPE_BILLDESK = "MobileApp";
+    String BDSKUATY = "RSRTCRFID";
+    String bdskuaty = "RSRTCRFID".toLowerCase(Locale.ROOT);
 }

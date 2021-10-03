@@ -17,7 +17,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import com.bumptech.glide.Glide;
@@ -25,24 +24,26 @@ import com.example.rsrtcs.BuildConfig;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 
+import com.example.rsrtcs.ui.activity.billdesk.PaymentActivity;
 import com.example.rsrtcs.databinding.ActivityUploadDocumentsBinding;
 import com.example.rsrtcs.model.request.ApplicationModel;
 import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
+import com.example.rsrtcs.model.request.SpinnerRequestModel;
 import com.example.rsrtcs.model.response.RegistrationModel;
 import com.example.rsrtcs.repository.cache.PrefrenceHelper;
 import com.example.rsrtcs.repository.cache.PrefrenceKeyConstant;
 import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
-import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.example.rsrtcs.utils.CommonUtils;
 import com.example.rsrtcs.utils.FilePath;
 import com.example.rsrtcs.utils.ImageUtil;
 import com.example.rsrtcs.utils.RegisterationDataHelper;
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import id.zelory.compressor.Compressor;
 import retrofit2.Call;
@@ -53,9 +54,10 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
 
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
     private RSRTCInterface smsApiInterface= new RSRTCConnection().createSMSService();
-
     private final int PROOF_ID_CODE=1,CONCESSION_CODE=2,ADDRESS_PROOF_CODE=3;
     private String path;
+    private List<SpinnerDataModel> mainList= new ArrayList<>();
+    private List<SpinnerDataModel> concessionList= new ArrayList<>();
 
     @Override
     protected ActivityUploadDocumentsBinding getActivityBinding() {
@@ -64,9 +66,57 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
 
     @Override
     protected void init() {
-        CommonUtils.setSpinner(binding.spinnerPhotoId,R.array.Concession_Proof);
-        CommonUtils.setSpinner(binding.spinnerConcession,R.array.Concession_Proof);
-        CommonUtils.setSpinner(binding.spinnerAddressProof,R.array.Addresss_Proof);
+        showLoadingDialog(this);
+        apiInterface.getDocumentType(new SpinnerRequestModel("MTP")).enqueue(new Callback<List<SpinnerDataModel>>() {
+            @Override
+            public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
+                if(response.isSuccessful()){
+                    concessionList=response.body();
+                    List<String> concessionListClone=new ArrayList<>();
+                    concessionListClone.add(0,"Select Concession Proof");
+                    for(int i=0;i<response.body().size();i++){
+                        concessionListClone.add(response.body().get(i).getDocumentName());
+                    }
+
+                    apiInterface.getConcessionDoc(new SpinnerRequestModel("")).enqueue(new Callback<List<SpinnerDataModel>>() {
+                        @Override
+                        public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
+                            dismissLoadingDialog();
+                            if(response.isSuccessful()){
+                                mainList=response.body();
+                                List<String> addressList=new ArrayList<>();
+                                List<String> proofList=new ArrayList<>();
+                                addressList.add(0,"Select Address Proof");
+                                proofList.add(0,"Select Proof ID");
+                                for(int i=0;i<response.body().size();i++){
+                                    addressList.add(response.body().get(i).getDocumentName());
+                                    proofList.add(response.body().get(i).getDocumentName());
+                                }
+
+                                CommonUtils.setSpinner(binding.spinnerConcession,concessionListClone);
+                                CommonUtils.setSpinner(binding.spinnerPhotoId,proofList);
+                                CommonUtils.setSpinner(binding.spinnerAddressProof,addressList);
+                            }
+                            else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<SpinnerDataModel>> call, Throwable t) {
+                            dismissLoadingDialog();
+                            showSnackBar(binding.getRoot(),t.getMessage());
+                        }
+                    });
+                }else{
+                    showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SpinnerDataModel>> call, Throwable t) {
+                dismissLoadingDialog();
+                showSnackBar(binding.getRoot(),t.getMessage());
+            }
+        });
     }
 
     @Override
@@ -92,7 +142,6 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, requestCode);
             }
         }
-
         return  ret;
     }
 
@@ -103,18 +152,10 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
         if(resultCode==RESULT_OK){
         if (data != null) path = FilePath.getPath(this, Uri.parse(data.getDataString()));
         Bitmap bitmap= Compressor.getDefault(this).compressToBitmap(new File(path));
-//            Bitmap bitmap= null;
-//            try {
-//                bitmap = ImageUtil.getBitmapFromUri2(UploadDocumentActivity.this,new File(path));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
         switch (requestCode) {
             case PROOF_ID_CODE:
                 if (ImageUtil.checkImageSize(bitmap)) {
                     RegisterationDataHelper.getInstance().getApplicationData().setPhotoIDProofData(ImageUtil.convertBaseString(bitmap));
-                    Log.e("base64",RegisterationDataHelper.getInstance().getApplicationData().getPhotoIDProofData());
                     binding.textView1.setText("Selected");
                     Glide.with(UploadDocumentActivity.this).load(bitmap).into(binding.ivOne);
                     binding.ivOne.setVisibility(View.VISIBLE);
@@ -150,9 +191,9 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
-        case R.id.spinner_photo_id : RegisterationDataHelper.getInstance().getApplicationData().setPhotoIDProofID(""+position); break;
-        case R.id.spinner_concession : RegisterationDataHelper.getInstance().getApplicationData().setConcessionApplicableDocumentProofID(""+position); break;
-        case R.id.spinner_addressProof : RegisterationDataHelper.getInstance().getApplicationData().setAddressProofID(""+position); break;
+        case R.id.spinner_photo_id : if(position>0) RegisterationDataHelper.getInstance().getApplicationData().setPhotoIDProofID(mainList.get(position-1).getSrNo()); break;
+        case R.id.spinner_concession : if(position>0) RegisterationDataHelper.getInstance().getApplicationData().setConcessionApplicableDocumentProofID(concessionList.get(position-1).getSrNo()); break;
+        case R.id.spinner_addressProof : if(position>0) RegisterationDataHelper.getInstance().getApplicationData().setAddressProofID(mainList.get(position-1).getSrNo()); break;
       }
     }
 
@@ -206,6 +247,8 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                 }
 
                 else {showSnackBar(binding.getRoot(),"Please Select Proof Details!");}
+            }else{
+                startActivity(new Intent(UploadDocumentActivity.this, PaymentActivity.class));
             }
             break;
         }
@@ -248,7 +291,7 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                 String outMsg=response.body().get(i).getOutMsg();
                 String appId=response.body().get(i).getAppId();
 
-                smsApiInterface.sendSMS(new SMSModel("Dear"+ PrefrenceHelper.getPrefrenceStringValue(this, PrefrenceKeyConstant.FULL_NAME) +", your RFID application no "+response.body().get(i).getAppId()+" is successfully registered with RSRTC.You will get confirmation when RSRTC Approve your application.RSRTCR",PrefrenceHelper.getPrefrenceStringValue(this,PrefrenceKeyConstant.PHONE_NO))).enqueue(new Callback<String>() {
+                smsApiInterface.sendSMS(new SMSModel("Dear "+ PrefrenceHelper.getPrefrenceStringValue(this, PrefrenceKeyConstant.FULL_NAME) +", your RFID application no "+response.body().get(i).getAppId()+" is successfully registered with RSRTC.You will get confirmation when RSRTC Approve your application.RSRTCR",PrefrenceHelper.getPrefrenceStringValue(this,PrefrenceKeyConstant.PHONE_NO))).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         dismissLoadingDialog();
@@ -280,11 +323,12 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                 .setTitle(message)
                 .setCancelable(false)
                 .setMessage("Your Application id is "+appId)
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Pay Now", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        RegisterationDataHelper.getInstance().setApplicationData(new ApplicationModel());
-                        startActivity(new Intent(UploadDocumentActivity.this, MainActivity.class));
+                        binding.btnRegister.setText("Pay Now");
+                        RegisterationDataHelper.getInstance().setApplicationData(new ApplicationModel("","1",appId,"","","","","","",PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.PHONE_NO),PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","","","","","","","","","","","","","","","","","","","","","","","0","0","0","","","0","0","0","0","0","0","","","","","I","","","000000000000"));
+                        startActivity(new Intent(UploadDocumentActivity.this, PaymentActivity.class));
                     }
                 })
                 .show();

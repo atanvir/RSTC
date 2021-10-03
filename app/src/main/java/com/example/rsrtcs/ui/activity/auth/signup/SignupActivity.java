@@ -1,11 +1,13 @@
 package com.example.rsrtcs.ui.activity.auth.signup;
 
+import static com.example.rsrtcs.repository.cache.PrefrenceHelper.saveUserData;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.isOnline;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.util.Patterns;
 import android.view.View;
@@ -15,11 +17,14 @@ import android.widget.Toast;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivitySignupBinding;
+import com.example.rsrtcs.model.request.LoginModel;
 import com.example.rsrtcs.model.response.AuthModel;
 import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.model.request.SignupModel;
 import com.example.rsrtcs.repository.remote.RSRTCConnection;
 import com.example.rsrtcs.repository.remote.RSRTCInterface;
+import com.example.rsrtcs.ui.activity.auth.login.LoginActivity;
+import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.example.rsrtcs.utils.MultiTextWatcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +34,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -114,9 +121,39 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
             break;
 
             case R.id.btnOTP:
-            if(binding.getData().getMobileNo().trim().length()==0) showSnackBar(binding.getRoot(),"Please enter mobile number");
-            else if(binding.getData().getMobileNo().trim().length()!=10) showSnackBar(binding.getRoot(),"Please enter valid mobile number");
-            else sendOTP();
+                if(binding.getData().getMobileNo().trim().length()==0) showSnackBar(binding.getRoot(),"Please enter mobile number");
+                else if(binding.getData().getMobileNo().trim().length()!=10) showSnackBar(binding.getRoot(),"Please enter valid mobile number");
+                else {
+                    showLoadingDialog(this);
+                    apiInterface.login(new LoginModel(binding.getData().getMobileNo(),"")).enqueue(new Callback<List<AuthModel>>() {
+                    @Override
+                    public void onResponse(Call<List<AuthModel>> call, Response<List<AuthModel>> response) {
+                        if(response.isSuccessful()){
+                            boolean ret=true;
+                            if(response.body().size()>0){ for(int i=0;i<response.body().size();i++){
+                            if(binding.getData().getMobileNo().equals(response.body().get(i).getMobileNo())){
+                                ret=false;
+                                break;
+                            }
+                            } }
+                            if(ret) sendOTP();
+                            else {
+                               dismissLoadingDialog();
+                                binding.tilMobileNo.setErrorEnabled(true);
+                                binding.tilMobileNo.setError("This Mobile No is already registered with our system , please try with any other");
+                            };
+                        }else{
+                            dismissLoadingDialog();
+                            showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<AuthModel>> call, Throwable t) {
+                        dismissLoadingDialog();
+                        showSnackBar(binding.getRoot(),t.getMessage());
+                    }
+            });}
             break;
 
             case R.id.tvLogin: finish(); break;
@@ -177,7 +214,6 @@ public class SignupActivity extends BaseActivity<ActivitySignupBinding> implemen
     }
 
     private void sendOTP() {
-        showLoadingDialog(this);
         auth.setLanguageCode("en");
         PhoneAuthOptions.Builder options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber("+91"+binding.tieMobileNo.getText().toString().trim())

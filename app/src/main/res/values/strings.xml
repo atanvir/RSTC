@@ -83,6 +83,7 @@
     <string name="search_route">Search Route</string>
     <string name="full_name">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="internal_server_error">Internal Server Error</string>
+    <string name="check_sum_key">G3eAmyVkAzKp8jFq0fqPEqxF4agynvtJ</string>
 
     <string-array name="title">
         <item>Title</item>

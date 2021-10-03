@@ -50,7 +50,6 @@ public class ConcessionDetailActivity extends BaseActivity<ActivityConcessionDet
 
     @Override
     protected void init() {
-        RegisterationDataHelper.getInstance().getApplicationData().setBusType("EXP");
         CommonUtils.setSpinner(binding.pasPeriod,R.array.pass_period);
         CommonUtils.setSpinner(binding.spinnerBusType1,R.array.bus_type);
         CommonUtils.setSpinner(binding.conTypeSpinner,getConsessionType());
@@ -74,7 +73,6 @@ public class ConcessionDetailActivity extends BaseActivity<ActivityConcessionDet
             public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
                 dismissLoadingDialog();
                 if(response.isSuccessful()){
-//                    concessionCodeList=response.body();
                     for(SpinnerDataModel model: response.body()){
                         if(type.equalsIgnoreCase("from")) {
                           if(stop.toLowerCase(Locale.ROOT).equals(model.getBusStopCode().toLowerCase(Locale.ROOT)))  {
@@ -177,11 +175,20 @@ public class ConcessionDetailActivity extends BaseActivity<ActivityConcessionDet
             RegisterationDataHelper.getInstance().getApplicationData().setExpiryDate(binding.datePick.getText().toString());
             break;
 
-            case R.id.spinner_bus_type1: Log.e("a","a"); break;
+            case R.id.spinner_bus_type1:
+                checkBusType(parent.getItemAtPosition(position).toString());
+
+                Log.e("a","a"); break;
         }
 
     }
 
+    private void checkBusType(String type) {
+        switch (type){
+            case "EXPRESS": RegisterationDataHelper.getInstance().getApplicationData().setBusType("EXP"); break;
+            case "ORDINARY": RegisterationDataHelper.getInstance().getApplicationData().setBusType("ORD"); break;
+        }
+    }
 
 
     private void checkConcessionType(String type) {
