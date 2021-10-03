@@ -1,4 +1,4 @@
-package com.example.rsrtcs.ui.activity.calculation;
+package com.example.rsrtcs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rsrtcs.PassTypeActivity;
-import com.example.rsrtcs.R;
 import com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity;
 import com.example.rsrtcs.model.response.RouteModel;
 

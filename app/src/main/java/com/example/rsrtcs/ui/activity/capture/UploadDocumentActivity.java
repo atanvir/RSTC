@@ -26,6 +26,7 @@ import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 
 import com.example.rsrtcs.databinding.ActivityUploadDocumentsBinding;
+import com.example.rsrtcs.model.request.ApplicationModel;
 import com.example.rsrtcs.model.request.SMSModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
 import com.example.rsrtcs.model.response.RegistrationModel;
@@ -277,10 +278,12 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
     private void showDialog(String message,String appId){
         new AlertDialog.Builder(this)
                 .setTitle(message)
+                .setCancelable(false)
                 .setMessage("Your Application id is "+appId)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        RegisterationDataHelper.getInstance().setApplicationData(new ApplicationModel());
                         startActivity(new Intent(UploadDocumentActivity.this, MainActivity.class));
                     }
                 })

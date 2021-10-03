@@ -64,7 +64,6 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
         bitmapImage=bitmap;
         if(checkImageSize(bitmap)){
             Glide.with(this).load(bitmap).into(binding.image);
-            //binding.image.setImageBitmap(bitmap);
         }else{ Toast.makeText(ImageCaptureActivity.this, "Please upload photo upto of 2 MB", Toast.LENGTH_SHORT).show(); }
 
     }
@@ -102,7 +101,11 @@ public class ImageCaptureActivity extends BaseActivity<ActivityImageCaptureBindi
             startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE);}
             break;
 
-            case R.id.clear:  binding.image.setImageBitmap(null); break;
+            case R.id.clear:
+            RegisterationDataHelper.getInstance().getApplicationData().setPhoto("");
+            RegisterationDataHelper.getInstance().getApplicationData().setHexPhoto("");
+            binding.image.setImageBitmap(null);
+            break;
 
             case R.id.next:
             if (bitmapImage!=null){

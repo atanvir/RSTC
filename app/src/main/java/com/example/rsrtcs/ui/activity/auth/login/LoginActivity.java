@@ -6,12 +6,15 @@ import static com.example.rsrtcs.utils.CommonUtils.isOnline;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.rsrtcs.ui.activity.capture.UploadDocumentActivity;
 import com.example.rsrtcs.ui.activity.main.MainActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
@@ -48,9 +51,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
         binding.btnLogin.setOnClickListener(this);
         binding.tvRegister.setOnClickListener(this);
         binding.tvForgotPassword.setOnClickListener(this);
-
         new MultiTextWatcher().registerEditText(binding.tieMobileNo).registerEditText(binding.tiePassword).setCallback(this);
     }
+
 
     @Override
     public void onClick(View v) {
