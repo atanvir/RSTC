@@ -21,4 +21,5 @@ public interface RSRTCConstants extends Serializable {
     String BILL_DESK_RESPONSE="BillDeskResponse";
     String DOCUMENT_TYPE="GetDocumentType";
     String DOCUMENT_CODE="GetConcessionDoc";
+    String BILLDESK_PAYLOAD="GetCheckSum";
 }

@@ -1,5 +1,7 @@
 package com.example.rsrtcs.ui.activity.capture;
 
+import static com.example.rsrtcs.repository.cache.PrefrenceKeyConstant.BDSKUATY;
+import static com.example.rsrtcs.repository.cache.PrefrenceKeyConstant.BILL_DESK_DUMP_URL;
 import static com.example.rsrtcs.utils.CommonUtils.dismissLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showLoadingDialog;
 import static com.example.rsrtcs.utils.CommonUtils.showSnackBar;
@@ -17,14 +19,20 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+
+import com.billdesk.sdk.PaymentOptions;
 import com.bumptech.glide.Glide;
 import com.example.rsrtcs.BuildConfig;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 
-import com.example.rsrtcs.ui.activity.billdesk.PaymentActivity;
+import com.example.rsrtcs.model.request.BillDeskRequestModel;
+import com.example.rsrtcs.model.request.BilldeskRequestPayloadModel;
+import com.example.rsrtcs.model.response.BillDeskModel;
+import com.example.rsrtcs.ui.activity.billdesk.BilldeskCallBack;
 import com.example.rsrtcs.databinding.ActivityUploadDocumentsBinding;
 import com.example.rsrtcs.model.request.ApplicationModel;
 import com.example.rsrtcs.model.request.SMSModel;
@@ -40,10 +48,12 @@ import com.example.rsrtcs.utils.FilePath;
 import com.example.rsrtcs.utils.ImageUtil;
 import com.example.rsrtcs.utils.RegisterationDataHelper;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-import java.util.UUID;
 
 import id.zelory.compressor.Compressor;
 import retrofit2.Call;
@@ -54,11 +64,16 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
 
     private RSRTCInterface apiInterface= new RSRTCConnection().createService();
     private RSRTCInterface smsApiInterface= new RSRTCConnection().createSMSService();
+
     private final int PROOF_ID_CODE=1,CONCESSION_CODE=2,ADDRESS_PROOF_CODE=3;
     private String path;
     private List<SpinnerDataModel> mainList= new ArrayList<>();
     private List<SpinnerDataModel> concessionList= new ArrayList<>();
 
+    private String payload = BDSKUATY;
+    private String payloadRest = "|NA|NA|NA|INR|NA|R|"+BDSKUATY.toLowerCase(Locale.ROOT)+"|NA|NA|F|NA|NA|NA|NA|NA|NA|NA|"+BILL_DESK_DUMP_URL;
+    private String FEES=PrefrenceKeyConstant.FEES;
+    
     @Override
     protected ActivityUploadDocumentsBinding getActivityBinding() {
         return ActivityUploadDocumentsBinding.inflate(getLayoutInflater());
@@ -66,38 +81,65 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
 
     @Override
     protected void init() {
-        showLoadingDialog(this);
-        apiInterface.getDocumentType(new SpinnerRequestModel("MTP")).enqueue(new Callback<List<SpinnerDataModel>>() {
-            @Override
-            public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
-                if(response.isSuccessful()){
-                    concessionList=response.body();
-                    List<String> concessionListClone=new ArrayList<>();
-                    concessionListClone.add(0,"Select Concession Proof");
-                    for(int i=0;i<response.body().size();i++){
-                        concessionListClone.add(response.body().get(i).getDocumentName());
-                    }
+        if(getIntent().getStringExtra("amount")!=null) FEES=getIntent().getStringExtra("amount");
+        generatePayloadBillDesk();
+    }
 
-                    apiInterface.getConcessionDoc(new SpinnerRequestModel("")).enqueue(new Callback<List<SpinnerDataModel>>() {
+    private void generatePayloadBillDesk() {
+        showLoadingDialog(this);
+        payload = payload + "|" + new SimpleDateFormat("yyMMddHHmmssms").format(new Date()) + "|" + "NA" + "|" + FEES + payloadRest;
+        apiInterface.getCheckSum(new BilldeskRequestPayloadModel(payload)).enqueue(new Callback<List<BillDeskModel>>() {
+            @Override
+            public void onResponse(Call<List<BillDeskModel>> call, Response<List<BillDeskModel>> response) {
+                if(response.isSuccessful()) {
+                    for(int i=0;i<response.body().size();i++){
+                        payload= payload +  "|" + response.body().get(i).getMsg().toUpperCase(Locale.ROOT) ;
+                        Log.e("response",response.body().get(i).getMsg().toUpperCase(Locale.ROOT));
+                        break;
+                    }
+                    apiInterface.getDocumentType(new SpinnerRequestModel("MTP")).enqueue(new Callback<List<SpinnerDataModel>>() {
                         @Override
                         public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
-                            dismissLoadingDialog();
                             if(response.isSuccessful()){
-                                mainList=response.body();
-                                List<String> addressList=new ArrayList<>();
-                                List<String> proofList=new ArrayList<>();
-                                addressList.add(0,"Select Address Proof");
-                                proofList.add(0,"Select Proof ID");
+                                concessionList=response.body();
+                                List<String> concessionListClone=new ArrayList<>();
+                                concessionListClone.add(0,"Select Concession Proof");
                                 for(int i=0;i<response.body().size();i++){
-                                    addressList.add(response.body().get(i).getDocumentName());
-                                    proofList.add(response.body().get(i).getDocumentName());
+                                    concessionListClone.add(response.body().get(i).getDocumentName());
                                 }
 
-                                CommonUtils.setSpinner(binding.spinnerConcession,concessionListClone);
-                                CommonUtils.setSpinner(binding.spinnerPhotoId,proofList);
-                                CommonUtils.setSpinner(binding.spinnerAddressProof,addressList);
+                                apiInterface.getConcessionDoc(new SpinnerRequestModel("")).enqueue(new Callback<List<SpinnerDataModel>>() {
+                                    @Override
+                                    public void onResponse(Call<List<SpinnerDataModel>> call, Response<List<SpinnerDataModel>> response) {
+                                        dismissLoadingDialog();
+                                        if(response.isSuccessful()) {
+                                            mainList=response.body();
+                                            List<String> addressList=new ArrayList<>();
+                                            List<String> proofList=new ArrayList<>();
+                                            addressList.add(0,"Select Address Proof");
+                                            proofList.add(0,"Select Proof ID");
+                                            for(int i=0;i<response.body().size();i++){
+                                                addressList.add(response.body().get(i).getDocumentName());
+                                                proofList.add(response.body().get(i).getDocumentName());
+                                            }
+
+                                            CommonUtils.setSpinner(binding.spinnerConcession,concessionListClone);
+                                            CommonUtils.setSpinner(binding.spinnerPhotoId,proofList);
+                                            CommonUtils.setSpinner(binding.spinnerAddressProof,addressList);
+                                        }
+                                        else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<SpinnerDataModel>> call, Throwable t) {
+                                        dismissLoadingDialog();
+                                        showSnackBar(binding.getRoot(),t.getMessage());
+                                    }
+                                });
+                            }else {
+                                dismissLoadingDialog();
+                                showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
                             }
-                            else showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
                         }
 
                         @Override
@@ -107,12 +149,12 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                         }
                     });
                 }else{
-                    showSnackBar(binding.getRoot(),getString(R.string.internal_server_error));
-                }
+                    dismissLoadingDialog();
+                    showSnackBar(binding.getRoot(),getString(R.string.internal_server_error)); }
             }
 
             @Override
-            public void onFailure(Call<List<SpinnerDataModel>> call, Throwable t) {
+            public void onFailure(Call<List<BillDeskModel>> call, Throwable t) {
                 dismissLoadingDialog();
                 showSnackBar(binding.getRoot(),t.getMessage());
             }
@@ -219,6 +261,8 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
             break;
 
             case R.id.btn_back: onBackPressed(); break;
+
+
             case R.id.btn_clear:
             binding.textView1.setText("Choose File");
             binding.textView2.setText("Choose File");
@@ -247,11 +291,33 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                 }
 
                 else {showSnackBar(binding.getRoot(),"Please Select Proof Details!");}
-            }else{
-                startActivity(new Intent(UploadDocumentActivity.this, PaymentActivity.class));
-            }
+            }else{ billDeskRequest(); }
             break;
         }
+    }
+
+    private void billDeskRequest() {
+        showLoadingDialog(this);
+        apiInterface.billDeskRequest(new BillDeskRequestModel(RegisterationDataHelper.getInstance().getApplicationData().getApplicantID(),PrefrenceHelper.getPrefrenceStringValue(this,PrefrenceKeyConstant.EMAIL_ID),payload)).enqueue(new Callback<List<BillDeskModel>>() {
+            @Override
+            public void onResponse(Call<List<BillDeskModel>> call, Response<List<BillDeskModel>> response) {
+                dismissLoadingDialog();
+                Intent sdkIntent = new Intent(UploadDocumentActivity.this, PaymentOptions.class);
+                sdkIntent.putExtra("msg", payload.toUpperCase(Locale.ROOT));
+                sdkIntent.putExtra("user-email", PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.EMAIL_ID));
+                sdkIntent.putExtra("user-mobile",PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.PHONE_NO));
+                sdkIntent.putExtra("callback",new BilldeskCallBack());
+                startActivity(sdkIntent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<List<BillDeskModel>> call, Throwable t) {
+                dismissLoadingDialog();
+                showSnackBar(binding.getRoot(),t.getMessage());
+            }
+        });
+
     }
 
     @Override
@@ -328,7 +394,7 @@ public class UploadDocumentActivity extends BaseActivity<ActivityUploadDocuments
                         dialog.dismiss();
                         binding.btnRegister.setText("Pay Now");
                         RegisterationDataHelper.getInstance().setApplicationData(new ApplicationModel("","1",appId,"","","","","","",PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.PHONE_NO),PrefrenceHelper.getPrefrenceStringValue(UploadDocumentActivity.this, PrefrenceKeyConstant.EMAIL_ID),"","","","","","","","","","","","","","","","","","","","","","","","","","","","0","0","0","","","0","0","0","0","0","0","","","","","I","","","000000000000"));
-                        startActivity(new Intent(UploadDocumentActivity.this, PaymentActivity.class));
+                        billDeskRequest();
                     }
                 })
                 .show();

@@ -30,5 +30,6 @@ public interface PrefrenceKeyConstant extends Serializable {
     String FEES ="40" ;
     String REQUEST_TYPE_BILLDESK = "MobileApp";
     String BDSKUATY = "RSRTCRFID";
-    String bdskuaty = "RSRTCRFID".toLowerCase(Locale.ROOT);
+    String BILL_DESK_DUMP_URL = "https://rsrtcrfidsystem.co.in/pg_dump.aspx";
+//    String BILL_DESK_DUMP_URL = "https://uat.billdesk.com/pgidsk/pgijsp/banksimulator.jsp";
 }

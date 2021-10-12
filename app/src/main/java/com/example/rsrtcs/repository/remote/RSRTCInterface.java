@@ -1,5 +1,6 @@
 package com.example.rsrtcs.repository.remote;
 
+import static com.example.rsrtcs.repository.remote.RSRTCConstants.BILLDESK_PAYLOAD;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.BILL_DESK_REQUEST;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.BILL_DESK_RESPONSE;
 import static com.example.rsrtcs.repository.remote.RSRTCConstants.CARD_DATA;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import com.example.rsrtcs.model.request.ApplicationModel;
 import com.example.rsrtcs.model.request.BillDeskRequestModel;
 import com.example.rsrtcs.model.request.BillDeskResponseModel;
+import com.example.rsrtcs.model.request.BilldeskRequestPayloadModel;
 import com.example.rsrtcs.model.request.ConcessionCodeModel;
 import com.example.rsrtcs.model.request.RouteModel;
 import com.example.rsrtcs.model.request.SpinnerDataModel;
@@ -105,4 +107,7 @@ public interface RSRTCInterface {
 
     @POST(DOCUMENT_CODE)
     Call<List<SpinnerDataModel>> getConcessionDoc(@Body SpinnerRequestModel model);
+
+    @POST(BILLDESK_PAYLOAD)
+    Call<List<BillDeskModel>> getCheckSum(@Body BilldeskRequestPayloadModel model);
 }

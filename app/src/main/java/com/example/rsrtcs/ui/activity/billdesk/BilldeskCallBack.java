@@ -8,13 +8,12 @@ import android.util.Log;
 
 import com.billdesk.sdk.LibraryPaymentStatusProtocol;
 
-public class SampleCallBack implements LibraryPaymentStatusProtocol, Parcelable {
+public class BilldeskCallBack implements LibraryPaymentStatusProtocol, Parcelable {
 
-	public SampleCallBack() {
+	public BilldeskCallBack() {
 	}
 
-	public SampleCallBack(Parcel in) {
-
+	public BilldeskCallBack(Parcel in) {
 	}
 
 	@Override
@@ -31,6 +30,7 @@ public class SampleCallBack implements LibraryPaymentStatusProtocol, Parcelable 
 
 	@Override
 	public void onError(Exception e) {
+//		Log.e("exception ",""+e.getMessage());
 	}
 
 	@Override
@@ -50,13 +50,13 @@ public class SampleCallBack implements LibraryPaymentStatusProtocol, Parcelable 
 	@SuppressWarnings("rawtypes")
 	public static final Creator CREATOR = new Creator() {
 		@Override
-		public SampleCallBack createFromParcel(Parcel in) {
-			return new SampleCallBack(in);
+		public BilldeskCallBack createFromParcel(Parcel in) {
+			return new BilldeskCallBack(in);
 		}
 
 		@Override
 		public Object[] newArray(int size) {
-			return new SampleCallBack[size];
+			return new BilldeskCallBack[size];
 		}
 	};
 }

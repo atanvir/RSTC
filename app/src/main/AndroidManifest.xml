@@ -35,7 +35,6 @@
             android:name="com.example.rsrtcs.ui.activity.auth.forgot.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
-        <activity android:name=".ui.activity.billdesk.PaymentActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.billdesk.PaymentStatusActivity" android:screenOrientation="portrait" />
         <activity android:name="com.example.rsrtcs.ui.activity.calculation.FixPassFareCalculation" android:screenOrientation="portrait" />
         <activity android:name="com.example.rsrtcs.ui.activity.concession.ConcessionDetailActivity"  android:screenOrientation="portrait"/>

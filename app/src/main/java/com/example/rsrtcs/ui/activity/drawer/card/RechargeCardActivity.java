@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.example.rsrtcs.ui.activity.billdesk.PaymentActivity;
 import com.example.rsrtcs.R;
 import com.example.rsrtcs.base.BaseActivity;
 import com.example.rsrtcs.databinding.ActivityRechargeCardBinding;
@@ -85,7 +84,7 @@ public class RechargeCardActivity extends BaseActivity<ActivityRechargeCardBindi
                 if(binding.getData().getCardNo().equalsIgnoreCase(response.body().get(i).getCardNo())){
                     getSharedPreferences(PrefrenceKeyConstant.PREF_NAME, Context.MODE_PRIVATE).edit().putString("cardNo", binding.tieEmail.getText().toString()).apply();
                     dismissLoadingDialog();
-                    startActivity(new Intent(RechargeCardActivity.this,PaymentActivity.class).putExtra("amount", response.body().get(i).getAmount()));
+//                    startActivity(new Intent(RechargeCardActivity.this,PaymentActivity.class).putExtra("amount", response.body().get(i).getAmount()));
                 }
             }
 

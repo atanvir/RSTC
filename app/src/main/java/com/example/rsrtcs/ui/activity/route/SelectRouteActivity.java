@@ -65,7 +65,9 @@ public class SelectRouteActivity extends BaseActivity<ActivitySelectRouteBinding
     }
 
     @Override
-    protected void initCtrl() { }
+    protected void initCtrl() {
+
+    }
 
 
     @Override
